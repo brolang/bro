@@ -1,22 +1,14 @@
 #define elif else if
 
+#include "hello.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-enum Token {
-     None, function_keyword, if_keyword, else_keyword, loop_keyword, module_keyword,
-     type_keyword,
-     and_operator, or_operator, assign_operator, eq_operator, gt_operator, not_operator, noteq_operator, gteq_operator, lt_operator,
-     lteq_operator,
-     identifier,
-};
+char* source;
+int source_pos;
 
-enum Scope {
-     Expression, Statement,
-     Variable, Operator, Literal, Keyword,
-     Module, Function, Block, If, Loop
-};
 
 
 enum Token returnToken(char* token){
@@ -105,30 +97,33 @@ int insert(enum Token token) {
 
 }
 
+
+
 enum Token parse(char *source) {
     char buffer[1024];
-    char sep;
+    char seperator;
     int pos = 0;
-    int spos = 0;
-    while(source[spos] != '\0'){
-    	printf("%c",source[spos]);
-	buffer[pos] = source[spos];
+    while(source[source_pos] != '\0'){
+    	printf("%c",source[source_pos]);
+	buffer[pos] = source[source_pos];
 	pos = pos + 1;
-	spos = spos + 1;
-	sep = source[spos];
-	if (sep == ' ' || sep == '\n' || sep == '{' || sep == '}' || sep == '(' || sep  == ')' || sep == ',' || sep == ':') {
+	source_pos = source_pos + 1;
+	seperator = source[source_pos];
+	if (seperator = ' ' || seperator == '\n' || seperator == '{' || seperator == '}' || seperator == '(' || seperator  == ')' || seperator == ',' || seperator == ':') {
 	   enum Token token = returnToken(buffer);
-	   insert(token);
-	   pos = 0;
-	   memset(buffer,0,sizeof(buffer));
+	   return token;
 	}
     }
+}
+
+int initParser(char* s) {
+    source = s;
 }
 
 int parseFile(FILE* f) {
     char buffer[1024];
     fread(buffer,sizeof(char),1024,f);
-    parse(buffer);
+    initParser(buffer);
 }
 
 int main(int argc, char** argv){

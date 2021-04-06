@@ -1,7 +1,8 @@
+#include "hello.h"
 #include <stdio.h>
 
 enum Seperator {
-  COLON, COMMA, SPACE, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, LEFT_CURLY_BRACE, RIGHT_CURLY_BRACE, SQUARE_BRACKET
+  COLON, COMMA, SPACE, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, LEFT_CURLY_BRACE, RIGHT_CURLY_BRACE, SQUARE_BRACKET, NEWLINE
 };
 
 
@@ -13,17 +14,20 @@ int is(enum Token expected) {
 }
 
 int issep() {
+    
+}
+
+int iseol() {
 
 }
 
-int eol() {
-
-}
-
-int condition() {
-   is(identifier)
-   is(operator)	   
-   is(identifier)
+int isoperator() {
+   if(is(eq_operator) || is(not_operator) || is(noteq_operator) || is(gt_operator) || is(lt_operator)
+	|| is(gteq_operator) || is(lteq_operator))
+	   return 0;
+   else
+	return 1;
+     
 }
 
 int function_call() {
@@ -46,7 +50,7 @@ int block() {
 }
 
 int if_statement() {
-   is(if_keyword)
+   is(if_keyword);
    condition();
    block();
 }
