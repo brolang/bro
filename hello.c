@@ -6,18 +6,20 @@
 
 enum Token {
      None, function_keyword, if_keyword, elif_keyword, else_keyword, for_keyword, while_keyword, module_keyword,
+     type_keyword,
      and_operator, or_operator, eq_operator, gt_operator, not_operator, noteq_operator, gteq_operator, lt_operator,
      lteq_operator,
      identifier,
 };
 
 enum Scope {
-     Block, Variable, Keyword, Operator, Expression, Statement, Literal, Condition
+     Block, Expression, Statement,
+     Variable, Operator, Literal, Keyword
 }
 
 
 enum Token returnToken(char* token){
-    if(token[0] == 'd' && token[1] == 'e' && token[2] == 'f')
+    if(token[0] == 'f' && token[1] == 'n')
 	    return function_keyword;
     elif(token[0] == 'i' && token[1] == 'f')
 	    return if_keyword;
@@ -31,6 +33,8 @@ enum Token returnToken(char* token){
 	    return while_keyword;
     elif(token[0] == 'm' && token[1] == 'o' && token[2] == 'd' && token[3] == 'u' && token[4] == 'l' && token[5] == 'e')
 	    return module_keyword;
+    elif(token[0] == 't' && token[1] == 'y' && token[2] == 'p' && token[3] == 'e')
+	    return type_keyword;
     elif(token[0] == 'a' && token[1] == 'n' && token[2] == 'd')
 	    return and_operator
     elif(token[0] == 'o' && token[1] == 'r')
@@ -54,12 +58,20 @@ enum Token returnToken(char* token){
 struct node {
    enum Token token;
    enum Scope scope;
-
+   enum Token nextToken;
    struct node* next;
 };
 
 struct node table;
-enum Token nextToken;
+enum Token currentToken;
+
+
+enum Scope getScope(enum Scope current) {
+}
+
+enum Token nextToken(enum Scope scope) {
+
+}
 
 
 int insert(enum Token token) {
@@ -75,9 +87,10 @@ int insert(enum Token token) {
    
    if(temp->next == NULL) {
       temp->next = malloc(sizeof(struct node));
-      if (token == nextToken) {
-	 temp->next->token = identifier;
-	 
+      if (temp->nextToken == token) {
+	 temp->next->token = token;
+         temp->next->scope = getScope(token);
+	 temp->next->nextToken = getNext(temp->next->scope);
       } else {
       	printf("Parsing failed");
 	exit(0);

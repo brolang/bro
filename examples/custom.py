@@ -1,0 +1,4 @@
+
+type hello
+  def sayHello():
+
