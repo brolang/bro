@@ -5,17 +5,18 @@
 #include <stdlib.h>
 
 enum Token {
-     None, function_keyword, if_keyword, elif_keyword, else_keyword, for_keyword, while_keyword, module_keyword,
+     None, function_keyword, if_keyword, else_keyword, loop_keyword, module_keyword,
      type_keyword,
-     and_operator, or_operator, eq_operator, gt_operator, not_operator, noteq_operator, gteq_operator, lt_operator,
+     and_operator, or_operator, assign_operator, eq_operator, gt_operator, not_operator, noteq_operator, gteq_operator, lt_operator,
      lteq_operator,
      identifier,
 };
 
 enum Scope {
-     Block, Expression, Statement,
-     Variable, Operator, Literal, Keyword
-}
+     Expression, Statement,
+     Variable, Operator, Literal, Keyword,
+     Module, Function, Block, If, Loop
+};
 
 
 enum Token returnToken(char* token){
@@ -23,34 +24,32 @@ enum Token returnToken(char* token){
 	    return function_keyword;
     elif(token[0] == 'i' && token[1] == 'f')
 	    return if_keyword;
-    elif(token[0] == 'e' && token[1] == 'l' && token[2] == 'i' && token[3] == 'f')
-	    return elif_keyword;
     elif(token[0] == 'e' && token[1] == 'l' && token[2] == 's' && token[3] == 'e')
 	    return else_keyword;
-    elif(token[0] == 'f' && token[1] == 'o' && token[2] == 'r')
-    	    return for_keyword;
-    elif(token[0] == 'w' && token[1] == 'h' && token[2] == 'l' && token[3] == 'e')
-	    return while_keyword;
+    elif(token[0] == 'l' && token[1] == 'o' && token[2] == 'o' && token[3] == 'p')
+	    return loop_keyword;
     elif(token[0] == 'm' && token[1] == 'o' && token[2] == 'd' && token[3] == 'u' && token[4] == 'l' && token[5] == 'e')
 	    return module_keyword;
     elif(token[0] == 't' && token[1] == 'y' && token[2] == 'p' && token[3] == 'e')
 	    return type_keyword;
     elif(token[0] == 'a' && token[1] == 'n' && token[2] == 'd')
-	    return and_operator
+	    return and_operator;
     elif(token[0] == 'o' && token[1] == 'r')
-    	    return or_operator
+    	    return or_operator;
     elif(token[0] == 'n' && token[1] == 'o' && token[2] == 't')
-    	    return not_operator
+    	    return not_operator;
     elif(token[0] == '=')
-    	    return eq_operator
+    	    return assign_operator;
+    elif(token[0] == '=' && token[1] == '=')
+    	    return eq_operator;
     elif(token[0] == '>')
-    	    return gt_operator
+    	    return gt_operator;
     elif(token[0] == '<')
-    	    return lt_operator
+    	    return lt_operator;
     elif(token[0] == '>' && token[1] == '=')
-	    return gteq_operator
+	    return gteq_operator;
     elif(token[0] == '<' && token[1] == '=')
-	    return lteq_operator    
+	    return lteq_operator;   
     else
 	    return identifier;
 }
@@ -58,7 +57,6 @@ enum Token returnToken(char* token){
 struct node {
    enum Token token;
    enum Scope scope;
-   enum Token nextToken;
    struct node* next;
 };
 
@@ -69,10 +67,19 @@ enum Token currentToken;
 enum Scope getScope(enum Scope current) {
 }
 
-enum Token nextToken(enum Scope scope) {
-
+int next(enum Scope scope) {
+   if(scope == Module)
+     module_statement();
+   elif(scope == Function)
+     function_statement();
+   elif(scope == If)
+     if_statement();
+   elif(scope == Loop)
+     loop_statement();
+   elif(scope == Block)
+     block_statement();
+   return 0;
 }
-
 
 int insert(enum Token token) {
    struct node *temp = NULL;
@@ -87,34 +94,41 @@ int insert(enum Token token) {
    
    if(temp->next == NULL) {
       temp->next = malloc(sizeof(struct node));
-      if (temp->nextToken == token) {
-	 temp->next->token = token;
-         temp->next->scope = getScope(token);
-	 temp->next->nextToken = getNext(temp->next->scope);
+      if(next(temp->scope)) {
+        temp->next->token = token;
+        temp->next->scope = getScope(token);
       } else {
-      	printf("Parsing failed");
-	exit(0);
+        printf("Parsing failed");
+        exit(0);
       }
-	    
    }
 
 }
 
-int parseFile(FILE* f) {
-  char c = 0;
-  char buffer[1024];
-  int tlen = 0;
-  while ((c = fgetc(f))!=EOF){
-       printf("%c",c);
-       buffer[tlen++] = c;
-       if (c == ' ' || c == '\n') {
-       	  enum Token token = returnToken(buffer); 
-          insert(token);	  
-          tlen = 0;
-	  memset(buffer, 0, sizeof(buffer));
-       }
+enum Token parse(char *source) {
+    char buffer[1024];
+    char sep;
+    int pos = 0;
+    int spos = 0;
+    while(source[spos] != '\0'){
+    	printf("%c",source[spos]);
+	buffer[pos] = source[spos];
+	pos = pos + 1;
+	spos = spos + 1;
+	sep = source[spos];
+	if (sep == ' ' || sep == '\n' || sep == '{' || sep == '}' || sep == '(' || sep  == ')' || sep == ',' || sep == ':') {
+	   enum Token token = returnToken(buffer);
+	   insert(token);
+	   pos = 0;
+	   memset(buffer,0,sizeof(buffer));
+	}
+    }
+}
 
-  }
+int parseFile(FILE* f) {
+    char buffer[1024];
+    fread(buffer,sizeof(char),1024,f);
+    parse(buffer);
 }
 
 int main(int argc, char** argv){
