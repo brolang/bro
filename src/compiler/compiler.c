@@ -5,11 +5,8 @@ enum Pass {
 }
 
 enum Pass compile() {
-     while(parse())
+     while(!error)
 	 next();
-     
-     if(error)
-	 newError();
 	
      return Ok;
 }

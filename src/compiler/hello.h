@@ -5,7 +5,8 @@ enum Token {
     None, function_keyword, if_keyword, else_keyword, loop_keyword, module_keyword, type_keyword,
     and_operator, or_operator, assign_operator, eq_operator, gt_operator, not_operator, noteq_operator, 
     gteq_operator, lt_operator,	lteq_operator,
-    identifier
+    identifier,
+    number_literal, string_literal
 };
 
 enum Scope {
@@ -16,10 +17,12 @@ enum Scope {
 
 int initParser(char* source);
 enum Token parse(char* source);
+int seperator(char c);
+int eol();
+
 int if_statement();
 int module_statement();
 int loop_statement();
-int block_statement();
 int function_statement();
 
 #endif

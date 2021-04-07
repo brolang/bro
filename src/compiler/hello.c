@@ -48,7 +48,7 @@ enum Token returnToken(char* token){
 
 struct node {
    enum Token token;
-   enum Scope scope;
+   enum Type nodeType;
    struct node* next;
 };
 
@@ -56,19 +56,19 @@ struct node table;
 enum Token currentToken;
 
 
-enum Scope getScope(enum Scope current) {
+enum Scope getType(enum Type current) {
 }
 
-int next(enum Scope scope) {
-   if(scope == Module)
+int next(enum Type type) {
+   if(type == Module)
      module_statement();
-   elif(scope == Function)
+   elif(type == Function)
      function_statement();
-   elif(scope == If)
+   elif(type == If)
      if_statement();
-   elif(scope == Loop)
+   elif(type == Loop)
      loop_statement();
-   elif(scope == Block)
+   elif(type == Block)
      block_statement();
    return 0;
 }
@@ -97,6 +97,15 @@ int insert(enum Token token) {
 
 }
 
+int checkSeperator(char sep) {
+  if(sep == seperator)
+    return 0;
+}
+
+int checkEol() {
+  if(seperator == '\n')
+    return 0;
+}
 
 
 enum Token parse(char *source) {

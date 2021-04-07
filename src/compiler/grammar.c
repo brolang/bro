@@ -7,18 +7,10 @@ enum Seperator {
 
 
 int is(enum Token expected) {
-  if(currentToken == expected)
+  if(parse() == expected)
     return 0;
   else
     return 1;  
-}
-
-int issep() {
-    
-}
-
-int iseol() {
-
 }
 
 int isoperator() {
@@ -30,67 +22,88 @@ int isoperator() {
      
 }
 
-int function_call() {
-   while(!eol()) {
-      is(identifier);
-   }   	   
+int expression() {
+    is(identifier);
+    is(operator);
+    expression();
 }
 
-int block() {
-   if(is(identifier)) 
-     if(is(assign_operator))
-       expression();
-     else
-       function_call();
-   else {
-     if_statement();
-     loop_statement();
-     lambda_statement();
-   }
-}
-
-int if_statement() {
-   is(if_keyword);
-   condition();
-   block();
-}
-
-int loop_condition() {
+int declaration() {
+    is(identifer)
+    seperator(':');
     is(identifier);
 }
 
+int condition() {
+    is(identifier);
+    is(operator);
+    condition();
+}
+
+int iterator() {
+    while(not(assign_operator))	
+       is(identifier);
+    is(yield_keyword)
+}
+
+int if_block() {
+
+}
+
+int if_statement() {
+    is(if_keyword);
+    condition();
+    if_block();
+}
+
+int loop_block() {
+    if(peek(identifier))
+        
+}
+
 int loop_statement() {
-   is(loop_keyword);
-   loop_condition();
-   block();
+    is(loop_keyword);
+    condition();
+    loop_block();
+}
+
+
+
+int function_arg() {
+    is(identifier);
+    // type
+    ispresent(identifier);
 }
 
 int function_prototype() {
-   while(!issep(RIGHT_PARENTHESIS)) {
-     is(identifier);
-     issep(COLON);
-     is(identifier);
-     issep(COMMA);
-   }
-   issep(COLON);
-   is(identifier);
+    while(!eol)
+        function_arg();  
 }
 
-int lambda_statement() {
-   is(identifier);
-   function_prototype();
-   is(assign_operator);
-   block();   
+
+int function_block() {
+    if(is(identifer))
+	expression();
+    elif(peek(if_keyword))
+	if_statement();
+    elif(peek(loop_keyword))
+	loop_statement();
 }
 
 int function_statement() {
-   is(function_keyword);
-   function_prototype();
-   block();
+    is(identifier);
+    function_prototype();
+    function_block();
+}
+
+int module_block() {
+    if(is(function_keyword))
+	function_statement();
 }
 
 int module_statement() {
-   is(module_keyword);
-   is(identifier);
-   block();
+    is(module_keyword);
+    is(string_literal);
+    is(module_block);
 }
+
