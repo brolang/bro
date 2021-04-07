@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/bro.dir/src/compiler/bro.c.o  -o bro 

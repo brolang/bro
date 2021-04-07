@@ -1,3 +1,0 @@
-/home/krishna/bro/CMakeFiles/rebuild_cache.dir
-/home/krishna/bro/CMakeFiles/edit_cache.dir
-/home/krishna/bro/CMakeFiles/bro.dir
