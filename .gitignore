@@ -54,6 +54,6 @@ dkms.conf
 CMakeCache.txt
 CMakeFiles
 bin
-CMakeTestTestFile.cmake
+CTestTestFile.cmake
 Makefile
 cmake_install.cmake
