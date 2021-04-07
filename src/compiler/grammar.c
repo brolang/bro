@@ -24,19 +24,19 @@ int isoperator() {
 
 int expression() {
     is(identifier);
-    is(operator);
+    isoperator();
     expression();
 }
 
 int declaration() {
-    is(identifer)
-    seperator(':');
+    is(identifier);
+    checkSeperator(':');
     is(identifier);
 }
 
 int condition() {
     is(identifier);
-    is(operator);
+    isoperator();
     condition();
 }
 
@@ -82,7 +82,7 @@ int function_prototype() {
 
 
 int function_block() {
-    if(is(identifer))
+    if(is(identifier))
 	expression();
     elif(peek(if_keyword))
 	if_statement();
@@ -104,6 +104,6 @@ int module_block() {
 int module_statement() {
     is(module_keyword);
     is(string_literal);
-    is(module_block);
+    module_block();
 }
 

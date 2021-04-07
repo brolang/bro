@@ -1,4 +1,3 @@
-#define elif else if
 
 #include "hello.h"
 
@@ -56,7 +55,7 @@ struct node table;
 enum Token currentToken;
 
 
-enum Type getType(enum Type current) {
+enum Type getType(enum Token current) {
 }
 
 int next(enum Type type) {
@@ -105,9 +104,15 @@ int checkEol() {
     return 0;
 }
 
+enum Token peek() {
+  int before = source_pos;
+  enum Token token = parse();
+  source_pos = before;
+  return token;
+}
 
 
-enum Token parse(char *source) {
+enum Token parse() {
     char buffer[1024];
     int pos = 0;
     while(source[source_pos] != '\0'){
@@ -116,7 +121,7 @@ enum Token parse(char *source) {
 	pos = pos + 1;
 	source_pos = source_pos + 1;
 	seperator = source[source_pos];
-	if (seperator = ' ' || seperator == '\n' || seperator == '{' || seperator == '}' || seperator == '(' || seperator  == ')' || seperator == ',' || seperator == ':') {
+	if (seperator == ' ' || seperator == '\n' || seperator == '{' || seperator == '}' || seperator == '(' || seperator  == ')' || seperator == ',' || seperator == ':') {
 	   enum Token token = returnToken(buffer);
 	   return token;
 	}

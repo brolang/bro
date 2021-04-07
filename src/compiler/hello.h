@@ -1,6 +1,8 @@
 #ifndef HELLO_H
 #define HELLO_H
 
+#define elif else if
+
 enum Token {
     None, function_keyword, if_keyword, else_keyword, loop_keyword, module_keyword, type_keyword,
     and_operator, or_operator, assign_operator, eq_operator, gt_operator, not_operator, noteq_operator, 
@@ -16,9 +18,10 @@ enum Type {
 };
 
 int initParser(char* source);
-enum Token parse(char* source);
-int seperator(char c);
-int eol();
+enum Token parse();
+enum Token peek();
+int checkSeperator(char c);
+int checkEol();
 
 int if_statement();
 int module_statement();
