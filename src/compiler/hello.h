@@ -9,7 +9,7 @@ enum Token {
     number_literal, string_literal
 };
 
-enum Scope {
+enum Type {
     Expression, Statement,
     Variable, Operator, Literal, Keyword,
     Module, Function, Block, If, Loop

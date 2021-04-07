@@ -35,6 +35,8 @@ struct Block {
 };
 
 
-int new() {
-  
+int newModule() {
+    struct Statement module;
+    module.keyword = module_keyword;
+    module.expression.identifier
 }

@@ -8,7 +8,7 @@
 
 char* source;
 int source_pos;
-
+char seperator;
 
 
 enum Token returnToken(char* token){
@@ -56,7 +56,7 @@ struct node table;
 enum Token currentToken;
 
 
-enum Scope getType(enum Type current) {
+enum Type getType(enum Type current) {
 }
 
 int next(enum Type type) {
@@ -68,8 +68,6 @@ int next(enum Type type) {
      if_statement();
    elif(type == Loop)
      loop_statement();
-   elif(type == Block)
-     block_statement();
    return 0;
 }
 
@@ -86,9 +84,9 @@ int insert(enum Token token) {
    
    if(temp->next == NULL) {
       temp->next = malloc(sizeof(struct node));
-      if(next(temp->scope)) {
+      if(next(temp->nodeType)) {
         temp->next->token = token;
-        temp->next->scope = getScope(token);
+        temp->next->nodeType = getType(token);
       } else {
         printf("Parsing failed");
         exit(0);
@@ -108,9 +106,9 @@ int checkEol() {
 }
 
 
+
 enum Token parse(char *source) {
     char buffer[1024];
-    char seperator;
     int pos = 0;
     while(source[source_pos] != '\0'){
     	printf("%c",source[source_pos]);
