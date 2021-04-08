@@ -1,12 +1,16 @@
+#include "hello.h"
+#include "compiler.h"
 #include <stdio.h>
 
 int eval(char* source) {
+    initParser(source);
+    compile();
     return 0;
 }
 
 int input() {
     char source[1024];
-    while(0) {
+    while(1) {
       printf(">> ");
       scanf("%s",source);
     }

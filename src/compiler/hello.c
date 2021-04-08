@@ -135,9 +135,11 @@ int initParser(char* source) {
     return 0;
 }
 
-int parseFile(FILE* f) {
+int parseFile(char* name) {
+    FILE *source;
+    source = fopen(name, "r");
     char buffer[1024];
-    fread(buffer,sizeof(char),1024,f);
+    fread(buffer,sizeof(char),1024,source);
     initParser(buffer);
     return 0;
 }

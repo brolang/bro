@@ -1,19 +1,16 @@
 #include "compiler.h"
 #include "stats.h"
 
-enum Pass {
-    Ok, Error
-};
 
-enum Pass init(int identifier) { 
+int init(int identifier) { 
     return Ok;
 }
 
-enum Pass compile() {
+int compile() {
     init();
     while(!next())
 	check();;	 	
-    return Ok;
+    return 0;
 }
 
 
