@@ -9,8 +9,10 @@ struct Container {
 struct Record {
     int identifier;
     int integer;
+    int boolean;
     float flot;
     double doubl;
+    size_t size;
     char* string;
 };
 
@@ -20,14 +22,15 @@ struct Variable {
 };
 
 struct Expression {
-    struct Variable variable;
-    enum Token operator;
-    struct Expression next;
+    struct Token token;
+    struct Seperator seperator;
+    struct Expression expression;
 };
 
 struct Statement {
     struct Token keyword;
     struct Expression expression;
+    struct Block block;
 };
 
 struct Block {
@@ -35,8 +38,6 @@ struct Block {
 };
 
 
-int newModule() {
-    struct Statement module;
-    module.keyword = module_keyword;
-    module.expression.identifier
+struct node newModule() {
+    
 }
