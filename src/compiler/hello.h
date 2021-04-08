@@ -14,7 +14,7 @@ enum Token {
 enum Type {
     Expression, Statement,
     Variable, Operator, Literal, Keyword,
-    Module, Function, Block, If, Loop
+    Module, Function, Block, Case, Loop
 };
 
 int initParser(char* source);

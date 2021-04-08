@@ -61,8 +61,8 @@ int next(enum Type type) {
      module_statement();
    elif(type == Function)
      function_statement();
-   elif(type == If)
-     if_statement();
+   elif(type == Case)
+     case_statement();
    elif(type == Loop)
      loop_statement();
    return 0;

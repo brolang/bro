@@ -44,21 +44,22 @@ int iterator() {
     
     while(!peek(assign_operator))	
        is(identifier);
-    is(yield_keyword)
+       checkSeperator(',');
+    is(assign_operator);
+    
 }
 
-int if_block() {
+int case_block() {
 
 }
 
 int case_statement() {
     is(case_keyword);
     condition();
-    if_block();
+    case_block();
 }
 
 int loop_block() {
-    if(peek(identifier))
         
 }
 
@@ -83,8 +84,8 @@ int function_prototype() {
 int function_block() {
     if(is(identifier))
 	expression();
-    elif(peek(if_keyword))
-	if_statement();
+    elif(peek(case_keyword))
+	case_statement();
     elif(peek(loop_keyword))
 	loop_statement();
 }
