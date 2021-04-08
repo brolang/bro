@@ -1,4 +1,3 @@
-
 #include "hello.h"
 
 #include <stdio.h>
@@ -60,12 +59,12 @@ enum Token currentToken;
 enum Type getType(enum Token current) {
 }
 
-int next(enum Type type) {
-   if(type == Module)
+int next(enum Token token) {
+   if(token == module_keyword)
        module_statement();
-   elif(type == Function)
+   elif(token == function_keyword)
        function_statement();
-   elif(type == Loop)
+   elif(token == loop_keyword)
        loop_statement();
    return 0;
 }

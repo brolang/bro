@@ -6,7 +6,8 @@ enable_testing()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+include_directories(src/stats)
 
 add_executable(hellobro src/compiler/hello.c src/compiler/grammar.c src/compiler/bro.c)
-add_executable(broeval src/compiler/eval.c src/compiler/compiler.c src/compiler/hello.c src/stats/stats.c)
+add_executable(broeval src/compiler/eval.c src/compiler/compiler.c src/compiler/hello.c src/compiler/grammar.c)
 add_executable(bro src/compiler/bro.c)
