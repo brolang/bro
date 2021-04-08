@@ -113,12 +113,13 @@ enum Token peek() {
 enum Token parse() {
     char buffer[1024];
     int pos = 0;
+
     while(source[source_pos] != '\0'){
     	printf("%c",source[source_pos]);
 	buffer[pos] = source[source_pos];
+	seperator = source[source_pos];
 	pos = pos + 1;
 	source_pos = source_pos + 1;
-	seperator = source[source_pos];
 	if (seperator == ' ' || seperator == '\n' || seperator == '{' || seperator == '}' || seperator == '(' || seperator  == ')' || seperator == ',' || seperator == ':') {
 	   enum Token token = returnToken(buffer);
 	   return token;
