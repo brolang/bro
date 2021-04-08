@@ -8,6 +8,4 @@ int main() {
     printf("\n");
     printf("compile compile the file\n");
     printf("eval run the interpreter\n");
-    printf("download the dependencies\n");
-    printf("run the file\n");
 }

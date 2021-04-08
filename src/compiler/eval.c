@@ -6,7 +6,7 @@ int eval(char* source) {
 
 int input() {
     char source[1024];
-    while(source[0]!=EOF) {
+    while(0) {
       printf(">> ");
       scanf("%s",source);
     }
@@ -21,6 +21,6 @@ int broeval() {
 }
 
 int main() {
-   broeval();
-   input();
+    broeval();
+    input();
 }

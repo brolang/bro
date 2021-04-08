@@ -6,42 +6,50 @@ enum Seperator {
 };
 
 
-int is(enum Token expected) {
-  if(parse() == expected)
+int is(enum Token token) {
+  if(parse() == token) {
+    insert(token);
     return 0;
-  else
-    return 1;  
+  } else {
+    return 1;
+  }
 }
 
-int isoperator() {
-   if(is(eq_operator) || is(not_operator) || is(noteq_operator) || is(gt_operator) || is(lt_operator)
+int iscompareoperator() {
+    if(is(eq_operator) || is(not_operator) || is(noteq_operator) || is(gt_operator) || is(lt_operator)
 	|| is(gteq_operator) || is(lteq_operator))
 	   return 0;
-   else
-	return 1;
+    else
+	   return 1;
      
 }
 
-int expression() {
-    is(identifier);
-    isoperator();
-    expression();
+int ismath_operator() {
+   if(is(add_operator) || is(multiplication_operator) || is(division_operator) || is(subtraction_operator))
+       return 0;
+   else
+       return 1;
 }
 
-int declaration() {
+
+
+//expression
+//identifier operator expression
+
+void declaration() {
     is(identifier);
-    checkSeperator(':');
-    is(identifier);
+    if(checkSeperator(':')) {
+      is(identifier);
+    }
 }
 
-int condition() {
+void condition() {
     is(identifier);
-    isoperator();
+    iscompareoperator();
     condition();
 }
 
-int iterator() {
-    
+void iterator() {    
     while(!peek(assign_operator))	
        is(identifier);
        checkSeperator(',');
@@ -49,59 +57,49 @@ int iterator() {
     
 }
 
-int case_block() {
-
+void math_expression() {
+    is(identifier);
+    ismath_operator();
+    math_expression();
 }
 
-int case_statement() {
-    is(case_keyword);
-    condition();
-    case_block();
+
+void block () {
+    if(peek(identifier))
+       math_expression();
+    elif(peek(loop_keyword))
+       loop_statement();
 }
 
-int loop_block() {
-        
-}
-
-int loop_statement() {
+void loop_statement() {
     is(loop_keyword);
     condition();
-    loop_block();
+    block();
 }
 
 
 
-int function_arg() {
+void function_arg() {
     is(identifier);
 }
 
-int function_prototype() {
+void function_prototype() {
     while(!checkEol())
       function_arg();  
 }
 
-
-int function_block() {
-    if(is(identifier))
-	expression();
-    elif(peek(case_keyword))
-	case_statement();
-    elif(peek(loop_keyword))
-	loop_statement();
-}
-
-int function_statement() {
+void function_statement() {
     is(identifier);
     function_prototype();
-    function_block();
+    block();
 }
 
-int module_block() {
+void module_block() {
     if(is(function_keyword))
 	function_statement();
 }
 
-int module_statement() {
+void module_statement() {
     is(module_keyword);
     is(string_literal);
     module_block();

@@ -5,9 +5,12 @@
 #include <string.h>
 #include <stdlib.h>
 
-char* source;
-int source_pos;
-char seperator;
+struct {
+    char* source;
+    int source_pos;
+    char seperator;
+    char identifier[1024];
+} Parser;
 
 
 enum Token returnToken(char* token){
@@ -45,6 +48,7 @@ enum Token returnToken(char* token){
 
 struct node {
    enum Token token;
+   char* identifier;
    enum Type nodeType;
    struct node* next;
 };
@@ -58,13 +62,11 @@ enum Type getType(enum Token current) {
 
 int next(enum Type type) {
    if(type == Module)
-     module_statement();
+       module_statement();
    elif(type == Function)
-     function_statement();
-   elif(type == Case)
-     case_statement();
+       function_statement();
    elif(type == Loop)
-     loop_statement();
+       loop_statement();
    return 0;
 }
 
@@ -81,31 +83,29 @@ int insert(enum Token token) {
    
    if(temp->next == NULL) {
       temp->next = malloc(sizeof(struct node));
-      if(next(temp->nodeType)) {
-        temp->next->token = token;
-        temp->next->nodeType = getType(token);
-      } else {
-        printf("Parsing failed");
-        exit(0);
-      }
+      temp->next->token = token;
+      temp->next->nodeType = getType(token);
    }
-
+   return 0;
 }
 
-int checkSeperator(char sep) {
-  if(sep == seperator)
+int checkSeperator(char seperator) {
+  if(Parser.seperator == seperator)
     return 0;
+  return 1;
 }
 
 int checkEol() {
-  if(seperator == '\n')
+  if(Parser.seperator == '\n')
     return 0;
+  return 1;
 }
 
+
 enum Token peek() {
-  int before = source_pos;
+  int before = Parser.source_pos;
   enum Token token = parse();
-  source_pos = before;
+  Parser.source_pos = before;
   return token;
 }
 
@@ -114,35 +114,31 @@ enum Token parse() {
     char buffer[1024];
     int pos = 0;
 
-    while(source[source_pos] != '\0'){
-    	printf("%c",source[source_pos]);
-	buffer[pos] = source[source_pos];
-	seperator = source[source_pos];
+    while(Parser.source[Parser.source_pos] != '\0'){
+    	printf("%c", Parser.source[Parser.source_pos]);
+	buffer[pos] = Parser.source[Parser.source_pos];
+	Parser.seperator = Parser.source[Parser.source_pos];
 	pos = pos + 1;
-	source_pos = source_pos + 1;
-	if (seperator == ' ' || seperator == '\n' || seperator == '{' || seperator == '}' || seperator == '(' || seperator  == ')' || seperator == ',' || seperator == ':') {
+	Parser.source_pos = Parser.source_pos + 1;
+	if (Parser.seperator == ' ' || Parser.seperator == '\n' || Parser.seperator == '{' || Parser.seperator == '}' || Parser.seperator == '(' || Parser.seperator  == ')' || Parser.seperator == ',' || Parser.seperator == ':') {
 	   enum Token token = returnToken(buffer);
+	   memset(Parser.identifier, 0, sizeof(Parser.identifier));
+	   strcat(Parser.identifier, buffer);
 	   return token;
 	}
     }
+    return None;
 }
 
-int initParser(char* s) {
-    source = s;
+int initParser(char* source) {
+    Parser.source = source;
+    return 0;
 }
 
 int parseFile(FILE* f) {
     char buffer[1024];
     fread(buffer,sizeof(char),1024,f);
     initParser(buffer);
+    return 0;
 }
 
-int main(int argc, char** argv){
-    FILE* f;
-    f = fopen(argv[1], "r");
-    if(f == NULL) {
-    	printf("Couldnt open file");
-	return 0;
-    }
-    parseFile(f);
-}
