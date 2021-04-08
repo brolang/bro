@@ -4,7 +4,7 @@
 #define elif else if
 
 enum Token {
-    None, function_keyword, if_keyword, else_keyword, loop_keyword, module_keyword, type_keyword,
+    None, function_keyword, case_keyword, loop_keyword, module_keyword, type_keyword,
     and_operator, or_operator, assign_operator, eq_operator, gt_operator, not_operator, noteq_operator, 
     gteq_operator, lt_operator,	lteq_operator,
     identifier,
@@ -23,7 +23,7 @@ enum Token peek();
 int checkSeperator(char c);
 int checkEol();
 
-int if_statement();
+int case_statement();
 int module_statement();
 int loop_statement();
 int function_statement();

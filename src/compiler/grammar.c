@@ -41,7 +41,8 @@ int condition() {
 }
 
 int iterator() {
-    while(not(assign_operator))	
+    
+    while(!peek(assign_operator))	
        is(identifier);
     is(yield_keyword)
 }
@@ -50,8 +51,8 @@ int if_block() {
 
 }
 
-int if_statement() {
-    is(if_keyword);
+int case_statement() {
+    is(case_keyword);
     condition();
     if_block();
 }
@@ -71,13 +72,11 @@ int loop_statement() {
 
 int function_arg() {
     is(identifier);
-    // type
-    ispresent(identifier);
 }
 
 int function_prototype() {
-    while(!eol)
-        function_arg();  
+    while(!checkEol())
+      function_arg();  
 }
 
 

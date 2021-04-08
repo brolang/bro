@@ -13,10 +13,8 @@ char seperator;
 enum Token returnToken(char* token){
     if(token[0] == 'f' && token[1] == 'n')
 	    return function_keyword;
-    elif(token[0] == 'i' && token[1] == 'f')
-	    return if_keyword;
-    elif(token[0] == 'e' && token[1] == 'l' && token[2] == 's' && token[3] == 'e')
-	    return else_keyword;
+    elif(token[0] == 'c' && token[1] == 'a' && token[2] == 's' && token[3] == 'e')
+	    return case_keyword;
     elif(token[0] == 'l' && token[1] == 'o' && token[2] == 'o' && token[3] == 'p')
 	    return loop_keyword;
     elif(token[0] == 'm' && token[1] == 'o' && token[2] == 'd' && token[3] == 'u' && token[4] == 'l' && token[5] == 'e')
