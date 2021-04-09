@@ -12,7 +12,7 @@ int init(int identifier) {
 
 int compile() {
     init(0);
-    while(noMoreTokens())
+    while(!noMoreTokens())
 	 printf("",parse());
     return 0;
 }
