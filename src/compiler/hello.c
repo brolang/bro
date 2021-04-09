@@ -5,10 +5,15 @@
 #include <stdlib.h>
 
 struct {
+    FILE* source_file;
     char* source;
     int source_pos;
     char seperator;
+    enum Seperator seperatorType;
     char identifier[1024];
+    enum Token token;
+    int source_length;
+    int line_number;
 } Parser;
 
 
@@ -49,6 +54,8 @@ struct node {
    enum Token token;
    char* identifier;
    enum Type nodeType;
+   int lineno;
+   int pos;
    struct node* next;
 };
 
@@ -59,12 +66,12 @@ enum Token currentToken;
 enum Type getType(enum Token current) {
 }
 
-int next(enum Token token) {
-   if(token == module_keyword)
+int next() {
+   if(Parser.token == module_keyword)
        module_statement();
-   elif(token == function_keyword)
+   elif(Parser.token == function_keyword)
        function_statement();
-   elif(token == loop_keyword)
+   elif(Parser.token == loop_keyword)
        loop_statement();
    return 0;
 }
@@ -108,38 +115,73 @@ enum Token peek() {
   return token;
 }
 
+int noMoreTokens() {
+  if (Parser.source_length == Parser.source_pos) 
+      return 0;
+  else
+      return 1;
+}
+
+enum Seperator parseSeperator() {
+    if(Parser.seperator == ' ') 
+        Parser.seperatorType = SPACE;
+    elif(Parser.seperator == '\n')
+        Parser.seperatorType = NEWLINE;
+    elif(Parser.seperator == '{')
+        Parser.seperatorType = LEFT_CURLY_BRACE;
+    elif(Parser.seperator == '}')
+	Parser.seperatorType = RIGHT_CURLY_BRACE;
+    elif(Parser.seperator == '(')
+	Parser.seperatorType = LEFT_PARENTHESIS;
+    elif(Parser.seperator == ')')
+	Parser.seperatorType = RIGHT_PARENTHESIS;
+    elif(Parser.seperator == ',')
+	Parser.seperatorType = COMMA;
+    elif(Parser.seperator == ':') 
+	Parser.seperatorType = COLON;
+
+    
+    return Parser.seperatorType;
+}
 
 enum Token parse() {
     char buffer[1024];
     int pos = 0;
-
-    while(Parser.source[Parser.source_pos] != '\0'){
-    	printf("%c", Parser.source[Parser.source_pos]);
-	buffer[pos] = Parser.source[Parser.source_pos];
-	Parser.seperator = Parser.source[Parser.source_pos];
-	pos = pos + 1;
-	Parser.source_pos = Parser.source_pos + 1;
-	if (Parser.seperator == ' ' || Parser.seperator == '\n' || Parser.seperator == '{' || Parser.seperator == '}' || Parser.seperator == '(' || Parser.seperator  == ')' || Parser.seperator == ',' || Parser.seperator == ':') {
-	   enum Token token = returnToken(buffer);
-	   memset(Parser.identifier, 0, sizeof(Parser.identifier));
-	   strcat(Parser.identifier, buffer);
-	   return token;
+    while(Parser.source[Parser.source_pos] != '\0') {
+    	// printf("%c", Parser.source[Parser.source_pos]);
+  	Parser.seperator = Parser.source[Parser.source_pos];
+ 	Parser.source_pos = Parser.source_pos + 1;
+	if(parseSeperator()) {
+	    continue;
+	} else {
+            buffer[pos] = Parser.source[Parser.source_pos];
+	    pos = pos + 1;
 	}
     }
-    return None;
+    printf("%s", buffer);
+    enum Token token = returnToken(buffer);
+    memset(Parser.identifier, 0, sizeof(Parser.identifier));
+    strcat(Parser.identifier, buffer);
+    return token;
 }
 
-int initParser(char* source) {
+int initParser(char* source, int source_length) {
     Parser.source = source;
+    Parser.source_length = source_length;
+    Parser.line_number = Parser.line_number + 1;
     return 0;
 }
 
 int parseFile(char* name) {
-    FILE *source;
-    source = fopen(name, "r");
+    Parser.source_file = fopen(name, "r");
     char buffer[1024];
-    fread(buffer,sizeof(char),1024,source);
-    initParser(buffer);
+    char c = 0;
+    int i = 0;
+    while((c=fgetc(Parser.source_file))!='\n') {
+	buffer[i] = c;
+        i = i + 1;
+    }
+    initParser(buffer,i);
     return 0;
 }
 

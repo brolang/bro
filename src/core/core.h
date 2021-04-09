@@ -3,10 +3,10 @@
 
 enum Code {
     block, jump, compare,
-    declare, alloc, free,
-    callmethod, init, initarg
+    declare, alloc,
+    callmethod, initvar, initarg,
     get
 
-}
+};
 
 #endif

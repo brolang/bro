@@ -1,9 +1,6 @@
 #include "hello.h"
 #include <stdio.h>
 
-enum Seperator {
-  COLON, COMMA, SPACE, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, LEFT_CURLY_BRACE, RIGHT_CURLY_BRACE, SQUARE_BRACKET, NEWLINE
-};
 
 
 int is(enum Token token) {
@@ -94,14 +91,10 @@ void function_statement() {
     block();
 }
 
-void module_block() {
-    if(is(function_keyword))
-	function_statement();
-}
 
 void module_statement() {
     is(module_keyword);
     is(string_literal);
-    module_block();
+    block();
 }
 

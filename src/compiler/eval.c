@@ -2,18 +2,23 @@
 #include "compiler.h"
 #include <stdio.h>
 
-int eval(char* source) {
-    initParser(source);
+int eval(char* source,int i) {
+    initParser(source,i);
     compile();
     return 0;
 }
 
 int input() {
     char source[1024];
-    while(1) {
-      printf(">> ");
-      scanf("%s",source);
+    char c = 0;
+    int i = 0;
+    printf(">> ");
+    while(c!='\n') {
+	c=getchar();
+	source[i] = c;
+	i = i + 1;
     }
+    eval(source,i);
 }
 
 int broeval() {
