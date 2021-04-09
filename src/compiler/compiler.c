@@ -13,7 +13,7 @@ int init(int identifier) {
 int compile() {
     init(0);
     while(noMoreTokens())
-	 parse();
+	 printf("",parse());
     return 0;
 }
 

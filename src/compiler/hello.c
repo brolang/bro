@@ -124,44 +124,44 @@ int noMoreTokens() {
 
 enum Seperator parseSeperator() {
     if(Parser.seperator == ' ') 
-        Parser.seperatorType = SPACE;
+        return SPACE;
     elif(Parser.seperator == '\n')
-        Parser.seperatorType = NEWLINE;
+        return NEWLINE;
     elif(Parser.seperator == '{')
-        Parser.seperatorType = LEFT_CURLY_BRACE;
+        return LEFT_CURLY_BRACE;
     elif(Parser.seperator == '}')
-	Parser.seperatorType = RIGHT_CURLY_BRACE;
+	return RIGHT_CURLY_BRACE;
     elif(Parser.seperator == '(')
-	Parser.seperatorType = LEFT_PARENTHESIS;
+	return LEFT_PARENTHESIS;
     elif(Parser.seperator == ')')
-	Parser.seperatorType = RIGHT_PARENTHESIS;
+	return RIGHT_PARENTHESIS;
     elif(Parser.seperator == ',')
-	Parser.seperatorType = COMMA;
+	return COMMA;
     elif(Parser.seperator == ':') 
-	Parser.seperatorType = COLON;
-
-    
-    return Parser.seperatorType;
+	return  COLON;
+    else
+        return NoneSeperator;
 }
 
 enum Token parse() {
+    printf("%d",Parser.source_pos);
     char buffer[1024];
     int pos = 0;
-    while(Parser.source[Parser.source_pos] != '\0') {
-    	// printf("%c", Parser.source[Parser.source_pos]);
-  	Parser.seperator = Parser.source[Parser.source_pos];
- 	Parser.source_pos = Parser.source_pos + 1;
-	if(parseSeperator()) {
-	    continue;
-	} else {
-            buffer[pos] = Parser.source[Parser.source_pos];
-	    pos = pos + 1;
+    int flag = 0;
+    while(Parser.source[Parser.source_pos]!='\0') {
+	Parser.seperator = Parser.source[Parser.source_pos];
+        if(parseSeperator()) {
+	    break;
 	}
+	buffer[pos] = Parser.source[Parser.source_pos];
+	pos = pos + 1;
+	Parser.source_pos = Parser.source_pos + 1;
     }
-    printf("%s", buffer);
+    printf("%s\n", buffer);
     enum Token token = returnToken(buffer);
     memset(Parser.identifier, 0, sizeof(Parser.identifier));
     strcat(Parser.identifier, buffer);
+
     return token;
 }
 
