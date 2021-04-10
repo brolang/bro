@@ -140,26 +140,23 @@ enum Seperator parseSeperator(char seperator) {
 
 enum Token parse() {
     printf("%d",Parser.source_pos);
-    char buffer[1024];
+    char buffer[1024]={0};
     int pos = 0;
     int flag = 0;
     while(Parser.source_pos < Parser.source_length && Parser.source[Parser.source_pos]!='\0') {
-	char seperator = Parser.source[Parser.source_pos];
-	buffer[pos] = Parser.source[Parser.source_pos];
-        pos = pos + 1;
-	Parser.source_pos = Parser.source_pos + 1;
-	if(parseSeperator(seperator)) { 
-            while(parseSeperator(seperator)!=NoneSeperator && Parser.source_pos < Parser.source_length) {
-		printf("seperator");
-	        seperator = Parser.source[Parser.source_pos];
-	        Parser.source_pos = Parser.source_pos + 1;
-	    }
-	    break;
+	if(parseSeperator(Parser.source[Parser.source_pos])!=NoneSeperator) { 
+	    printf("seperator");
+	    Parser.source_pos = Parser.source_pos + 1;
+	    continue;
 	}
+	buffer[pos] = Parser.source[Parser.source_pos];
+	pos = pos + 1;
+	Parser.source_pos = Parser.source_pos + 1;
 
     }
-    printf("%s\n", buffer);
+    printf("Buffer %s\n", buffer);
     enum Token token = returnToken(buffer);
+    printf("Token %d\n", token);
     memset(Parser.identifier, 0, sizeof(Parser.identifier));
     strcat(Parser.identifier, buffer);
 

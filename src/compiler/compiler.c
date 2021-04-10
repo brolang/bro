@@ -13,10 +13,14 @@ int init(int identifier) {
 int compile() {
     init(0);
     while(!noMoreTokens())
-	 printf("",parse());
+	 parse();
     return 0;
 }
 
-int gencore() {
+int stats_syntax() {
+    
+}
+
+int codegen() {
     return 0;
 }
