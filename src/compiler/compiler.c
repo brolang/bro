@@ -18,7 +18,7 @@ int compile() {
 }
 
 int stats_syntax() {
-    
+    return 0;     
 }
 
 int codegen() {
