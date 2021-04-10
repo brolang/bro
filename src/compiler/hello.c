@@ -143,18 +143,17 @@ enum Token parse() {
     char buffer[1024];
     int pos = 0;
     int flag = 0;
-    while(Parser.source_pos <= Parser.source_length && Parser.source[Parser.source_pos]!='\0') {
+    while(Parser.source_pos < Parser.source_length && Parser.source[Parser.source_pos]!='\0') {
 	char seperator = Parser.source[Parser.source_pos];
 	buffer[pos] = Parser.source[Parser.source_pos];
         pos = pos + 1;
 	Parser.source_pos = Parser.source_pos + 1;
-	if(parseSeperator(seperator)) {
-	    if(noMoreTokens() == 0) 
-                while(parseSeperator(seperator)!=NoneSeperator && Parser.source_pos <= Parser.source_length) {
-		    printf("seperator");
-	            seperator = Parser.source[Parser.source_pos];
-	            Parser.source_pos = Parser.source_pos + 1;
-	        }
+	if(parseSeperator(seperator)) { 
+            while(parseSeperator(seperator)!=NoneSeperator && Parser.source_pos < Parser.source_length) {
+		printf("seperator");
+	        seperator = Parser.source[Parser.source_pos];
+	        Parser.source_pos = Parser.source_pos + 1;
+	    }
 	    break;
 	}
 
