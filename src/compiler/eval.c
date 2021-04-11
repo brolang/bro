@@ -21,7 +21,7 @@ int input() {
     eval(source,i);
 }
 
-int eval() {
+int info() {
     printf("PING LANGUAGE \n");
     printf("VADAPALLI KRISHNA SATYA");
     printf("\n");
@@ -30,6 +30,6 @@ int eval() {
 }
 
 int main() {
-    broeval();
+    info();
     input();
 }
