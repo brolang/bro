@@ -12,4 +12,4 @@ add_executable(hellobro src/compiler/hello.c src/compiler/grammar.c src/compiler
 add_executable(broeval src/compiler/eval.c src/compiler/compiler.c src/compiler/hello.c src/compiler/grammar.c)
 add_executable(bro src/compiler/bro.c)
 
-add_executable(brodebug src/debug/bro.c src/debug/debug.c)
+add_executable(brodebug src/debug/bro.c src/debug/debug.c src/compiler/compiler.c src/compiler/hello.c src/compiler/grammar.c)
