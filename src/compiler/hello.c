@@ -110,7 +110,7 @@ enum Token peek() {
 }
 
 int noMoreTokens() {
-  printf("Tokens %d %d\n",Parser.source_length, Parser.source_pos);
+  //printf("Tokens %d %d\n",Parser.source_length, Parser.source_pos);
   if (Parser.source_length == Parser.source_pos) 
       return 1;
   else
@@ -139,7 +139,7 @@ enum Seperator parseSeperator(char seperator) {
 }
 
 enum Token parse() {
-    printf("%d",Parser.source_pos);
+    //printf("%d",Parser.source_pos);
     char buffer[1024]={0};
     int pos = 0;
     int flag = 0;
@@ -154,9 +154,9 @@ enum Token parse() {
 	Parser.source_pos = Parser.source_pos + 1;
 
     }
-    printf("Buffer %s\n", buffer);
+   // printf("Buffer %s\n", buffer);
     enum Token token = returnToken(buffer);
-    printf("Token %d\n", token);
+   //printf("Token %d\n", token);
     memset(Parser.identifier, 0, sizeof(Parser.identifier));
     strcat(Parser.identifier, buffer);
 

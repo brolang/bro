@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int main() {
-    printf("BRO LANGUAGE\n");
+    printf("PING LANGUAGE\n");
     printf("VADAPALLI KRISHNA SATYA\n");
     printf("\n");
     printf("\n");

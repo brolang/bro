@@ -21,8 +21,8 @@ int input() {
     eval(source,i);
 }
 
-int broeval() {
-    printf("BRO LANGUAGE \n");
+int eval() {
+    printf("PING LANGUAGE \n");
     printf("VADAPALLI KRISHNA SATYA");
     printf("\n");
     printf("\n");
