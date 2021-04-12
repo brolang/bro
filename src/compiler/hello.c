@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 struct {
     FILE* source_file;
@@ -15,23 +16,32 @@ struct {
 } Parser;
 
 
-enum Token returnToken(char* token){
-    if(token[0] == 'f' && token[1] == 'n')
-	    return function_keyword;
-    elif(token[0] == 'c' && token[1] == 'a' && token[2] == 's' && token[3] == 'e')
+enum Keyword returnKeyword(char* token){
+    if(token[0] == 'c' && token[1] == 'a' && token[2] == 's' && token[3] == 'e')
 	    return case_keyword;
     elif(token[0] == 'l' && token[1] == 'o' && token[2] == 'o' && token[3] == 'p')
 	    return loop_keyword;
     elif(token[0] == 'c' && token[1] == 'a' && token[2] == 'c' && token[3] == 't' && token[4] == 'c' && token[5] == 'h')
 	    return catch_keyword;
-    elif(token[0] == 'm' && token[1] == 'o' && token[2] == 'd' && token[3] == 'u' && token[4] == 'l' && token[5] == 'e')
-	    return module_keyword;
     elif(token[0] == 't' && token[1] == 'y' && token[2] == 'p' && token[3] == 'e')
 	    return type_keyword;
-    elif(token[0] = 'm' && token[1] == 'a' && token[2] == 'c' && token[3] == 'o')
+    elif(token[0] == 'm' && token[1] == 'a' && token[2] == 'c' && token[3] == 'o')
 	    return macro_keyword;
     else
 	    return identifier;
+}
+
+enum Literal returnInteger(char* buffer,int length){
+	int i = 0;
+	while(i < length  && isdigit(buffer[i])) {
+            i = i + 1;
+	}
+	return integer_literal;
+}
+
+enum Literal returnString(char* buffer, int length){
+	if(buffer[0] == '"' && buffer[length-1] == '"')
+		return string_literal;
 }
 
 struct node {
@@ -133,8 +143,10 @@ enum Token parse() {
     while(Parser.source_pos < Parser.source_length && Parser.source[Parser.source_pos]!='\0') {
 	if(parseSeperator(Parser.source[Parser.source_pos])!=NoneSeperator) { 
 	    if(flag == 0) {
-	        //is(buffer);
+	        //interpret(buffer,pos);
 		flag = 1;
+		pos = 0;
+		memset(buffer, 0, sizeof(buffer));
 	    }
 	    Parser.source_pos = Parser.source_pos + 1;
 	} else {
