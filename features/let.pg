@@ -1,6 +1,4 @@
 
-module {
-    fn sayHello() {
-        print "hello"
-    }
+macro feature_let = {
+    enable_keyword let_keyword;
 }
