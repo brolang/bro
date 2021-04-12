@@ -8,12 +8,13 @@ enum Keyword {
 };
 
 enum Literal {
-    integer_literal, double_literal, float_literal, string_literal, boolean_literal
+    integer_literal, double_literal, float_literal, string_literal, true_literal, false_literal
 };
 
-enum Type {
+enum Kind {
     Keyword, Literal, Block
 };
+
 enum Seperator { 
     NoneSeperator, COLON, COMMA, SPACE, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, LEFT_CURLY_BRACE, RIGHT_CURLY_BRACE,
     SQUARE_BRACKET, NEWLINE                                                               

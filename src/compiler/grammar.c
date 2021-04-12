@@ -8,26 +8,28 @@ int lookup(char *Buffer) {
     keyword = returnKeyword(buffer);
 }
 
+
+
 int interpret(char buffer[1024]) {
     lookup(buffer);
     if(currentKeyword == identifier)
         interpretBlock();
     else 
-	interpretRecord();
+	    interpretRecord();
 }
 
 int interpretBlock() {
     struct Block block;
-    block.identifier = next();
-    block.method = next();
+    block.identifier = nextValue();
+    block.method = nextValue();
     if(args)
-	  block.args = next();  
+	  block.args = nextMap();
 }
 
 int interpretRecord() {
     struct Record record;
-    record.identifier = next();
-    record.type = next();
+    record.identifier = nextValue();
+    record.type = nextValue();
     record.block = interpretBlock();
 }
 

@@ -31,7 +31,7 @@ enum Keyword returnKeyword(char* token){
 	    return identifier;
 }
 
-enum Literal returnInteger(char* buffer,int length){
+enum Literal returnInteger(char* buffer,int length) {
 	int i = 0;
 	while(i < length  && isdigit(buffer[i])) {
             i = i + 1;
@@ -39,17 +39,22 @@ enum Literal returnInteger(char* buffer,int length){
 	return integer_literal;
 }
 
-enum Literal returnString(char* buffer, int length){
+enum Literal returnString(char* buffer, int length) {
 	if(buffer[0] == '"' && buffer[length-1] == '"')
 		return string_literal;
 }
 
+enum Literal returnBoolean(char* buffer, int length) {
+    if(buffer[0] == 't' && buffer[1] == 'r' && buffer[2] == 'u' && buffer[3] == 'e')
+        return true_literal;
+    elif(buffer[0] == 'f' && buffer[1] == 'a' && buffer[2] == 'l' && buffer[3] == 's' && buffer[4] == 'e')
+        return false_literal;
+}
+
 struct node {
-   enum Token token;
    char* identifier;
-   enum Type nodeType;
    int lineno;
-   int pos;
+   int length;
    struct node* next;
 };
 
@@ -70,7 +75,7 @@ int next() {
    return 0;
 }
 
-int insert(enum Token token) {
+int insert(char* buffer, int length) {
    struct node *temp = NULL;
    temp = &table;
    if (temp->token == None) {
@@ -83,53 +88,33 @@ int insert(enum Token token) {
    
    if(temp->next == NULL) {
       temp->next = malloc(sizeof(struct node));
-      temp->next->token = token;
-      temp->next->nodeType = getType(token);
+      temp->next->identifier = buffer;
+      temp->next->length = length;
    }
    return 0;
 }
 
-int checkSeperator(char seperator) {
-  return 1;
-}
-
-int checkEol() {
-  return 1;
-}
 
 
-enum Token peek() {
-  int before = Parser.source_pos;
-  enum Token token = parse();
-  Parser.source_pos = before;
-  return token;
-}
-
-int noMoreTokens() {
-  //printf("Tokens %d %d\n",Parser.source_length, Parser.source_pos);
-  if (Parser.source_length == Parser.source_pos) 
-      return 1;
-  else
-      return 0;
-}
 
 enum Seperator parseSeperator(char seperator) {
     if(seperator == ' ') 
         return SPACE;
-    elif(seperator == '\n')
+    elif(seperator == '\n') {
+        Parser.line_number = Parser.line_number + 1;
         return NEWLINE;
-    elif(seperator == '{')
+    } elif(seperator == '{')
         return LEFT_CURLY_BRACE;
     elif(seperator == '}')
-	return RIGHT_CURLY_BRACE;
+	    return RIGHT_CURLY_BRACE;
     elif(seperator == '(')
-	return LEFT_PARENTHESIS;
+	    return LEFT_PARENTHESIS;
     elif(seperator == ')')
-	return RIGHT_PARENTHESIS;
+	    return RIGHT_PARENTHESIS;
     elif(seperator == ',')
-	return COMMA;
+	    return COMMA;
     elif(seperator == ':') 
-	return  COLON;
+	    return  COLON;
     else
         return NoneSeperator;
 }
@@ -141,21 +126,21 @@ enum Token parse() {
     int flag = 0;
     
     while(Parser.source_pos < Parser.source_length && Parser.source[Parser.source_pos]!='\0') {
-	if(parseSeperator(Parser.source[Parser.source_pos])!=NoneSeperator) { 
-	    if(flag == 0) {
-	        //interpret(buffer,pos);
-		flag = 1;
-		pos = 0;
-		memset(buffer, 0, sizeof(buffer));
-	    }
-	    Parser.source_pos = Parser.source_pos + 1;
-	} else {
-	    buffer[pos] = Parser.source[Parser.source_pos];
-	    pos = pos + 1;
-	    Parser.source_pos = Parser.source_pos + 1;
-	    if(flag == 1)
-	        flag = 0;
-	}
+	    if(parseSeperator(Parser.source[Parser.source_pos])!=NoneSeperator) {
+	        if(flag == 0) {
+	            insert(buffer,pos);
+		        flag = 1;
+		        pos = 0;
+		        memset(buffer, 0, sizeof(buffer));
+	       }
+	       Parser.source_pos = Parser.source_pos + 1;
+	   } else {
+	       buffer[pos] = Parser.source[Parser.source_pos];
+	       pos = pos + 1;
+	       Parser.source_pos = Parser.source_pos + 1;
+	       if(flag == 1)
+	           flag = 0;
+	   }
     }
 }
 

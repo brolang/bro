@@ -5,15 +5,13 @@
 
 #include <stdio.h>
 
-int init(int identifier) { 
-    
+int init(int identifier) {
     return 0;
 }
 
 int compile() {
     init(0);
-    while(!noMoreTokens())
-	 parse();
+    parse();
     return 0;
 }
 
