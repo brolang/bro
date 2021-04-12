@@ -1,0 +1,2 @@
+
+type function() = d String "hello"    

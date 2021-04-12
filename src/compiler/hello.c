@@ -22,28 +22,14 @@ enum Token returnToken(char* token){
 	    return case_keyword;
     elif(token[0] == 'l' && token[1] == 'o' && token[2] == 'o' && token[3] == 'p')
 	    return loop_keyword;
+    elif(token[0] == 'c' && token[1] == 'a' && token[2] == 'c' && token[3] == 't' && token[4] == 'c' && token[5] == 'h')
+	    return catch_keyword;
     elif(token[0] == 'm' && token[1] == 'o' && token[2] == 'd' && token[3] == 'u' && token[4] == 'l' && token[5] == 'e')
 	    return module_keyword;
     elif(token[0] == 't' && token[1] == 'y' && token[2] == 'p' && token[3] == 'e')
 	    return type_keyword;
-    elif(token[0] == 'a' && token[1] == 'n' && token[2] == 'd')
-	    return and_operator;
-    elif(token[0] == 'o' && token[1] == 'r')
-    	    return or_operator;
-    elif(token[0] == 'n' && token[1] == 'o' && token[2] == 't')
-    	    return not_operator;
-    elif(token[0] == '=')
-    	    return assign_operator;
-    elif(token[0] == '=' && token[1] == '=')
-    	    return eq_operator;
-    elif(token[0] == '>')
-    	    return gt_operator;
-    elif(token[0] == '<')
-    	    return lt_operator;
-    elif(token[0] == '>' && token[1] == '=')
-	    return gteq_operator;
-    elif(token[0] == '<' && token[1] == '=')
-	    return lteq_operator;   
+    elif(token[0] = 'm' && token[1] == 'a' && token[2] == 'c' && token[3] == 'o')
+	    return macro_keyword;
     else
 	    return identifier;
 }

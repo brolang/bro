@@ -1,0 +1,7 @@
+
+type module = {
+    case len "hello" equal 0 = {
+        print "hello"
+    }
+
+}

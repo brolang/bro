@@ -1,43 +1,33 @@
 #include "types.h"
 
 struct Container {
-    int name;
     int size;
-    struct Record *record;
+    int memory;
+}
+
+struct Value {
+    buffer Container;
+    char identifier[1024];
+}
+
+struct Map {
+    struct Value key;
+    struct Value value;
+}
+
+struct Block {
+    struct Value identifier;
+    struct Value method;
+    struct Map   args;
 }
 
 struct Record {
-    int identifier;
-    int integer;
-    int boolean;
-    float flot;
-    double doubl;
-    size_t size;
-    char* string;
-};
-
-struct Variable {
-    char* identifier;
-    struct Record record;
-};
-
-struct Expression {
-    struct Token token;
-    struct Seperator seperator;
-    struct Expression expression;
-};
-
-struct Statement {
-    struct Token keyword;
-    struct Expression expression;
+    struct Value identifer;
+    struct Value type;
     struct Block block;
 };
 
-struct Block {
-    struct Statement *statements;
-};
-
-
-struct node newModule() {
-    
+struct Error {
+     reason Value;
+     solution Value;
 }

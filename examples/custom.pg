@@ -1,0 +1,7 @@
+
+type hello = {
+  type sayHello(name String) = {
+      include "stdin"
+      stdin.print "hello" + name
+  }
+}

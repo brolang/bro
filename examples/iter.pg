@@ -1,0 +1,13 @@
+loop range 0, 20 x, y = {
+
+
+}
+
+loop x notequal 0 and y notequal 0 = {
+
+}
+
+case x equal 0 {
+
+} 
+

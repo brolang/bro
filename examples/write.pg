@@ -1,0 +1,6 @@
+
+type hello() = {
+    t &Integer
+    t "hello"
+}
+

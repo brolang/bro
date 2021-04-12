@@ -1,4 +1,0 @@
-
-type hello
-  def sayHello():
-

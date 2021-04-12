@@ -1,0 +1,19 @@
+type Test = {
+
+
+comment 
+"clear and pure condition
+no else if and else"
+
+    type hello() = {
+        x Integer
+        x "hello"
+        case len h greaterthan 0 = {
+            x
+        } 
+        case x equal 0 = {
+
+        }
+     }   
+
+}

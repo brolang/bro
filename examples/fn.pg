@@ -1,0 +1,38 @@
+
+type HelloModule ={
+  type hello = {
+    h String
+    
+    hello() Integer = {
+       case ell equal "string" = {
+          print ell
+       } 
+
+       case b equal "call" = {
+          x  Integer 
+	  x add 2
+          //lambda syntax
+          x(z Integer, b Integer) = z add b;
+          loop i notequal 0 = {
+
+          }
+
+          loop range 0,20 x {
+            print x add 1
+          } 
+
+          mixin = {
+
+          }
+       }
+    }
+
+    type say() = {
+       print "Hello"
+    }
+  }
+
+  hello(x Integer,y String) Integer = {
+     x 2
+  }
+}
