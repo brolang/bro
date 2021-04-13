@@ -1,38 +1,36 @@
 
-type HelloModule ={
-  type hello = {
-    h String
+module HelloModule {
+  hello {
+    String h
     
-    hello() Integer = {
-       case ell equal "string" = {
-          print ell
-       } 
+       Integer hello()  {
+           case ell equal "string" {
+               print ell
+           } 
 
-       case b equal "call" = {
-          x  Integer 
-	  x add 2
-          //lambda syntax
-          x(z Integer, b Integer) = z add b;
-          loop i notequal 0 = {
+           case b equal "call" {
+               Integer x 
+	       x add 2
+               //lambda syntax
+               Integer x(Integer z ,Integer b)  z add b 
+               loop i notequal 0 {
 
-          }
-
-          loop range 0,20 x {
-            print x add 1
-          } 
-
-          mixin = {
-
-          }
+               }
+               
+	       Range x
+               loop x {
+                    print x add 1
+               } 
+           }
        }
-    }
 
-    type say() = {
-       print "Hello"
-    }
+       module say {
+           print "Hello"
+       }
   }
 
-  hello(x Integer,y String) Integer = {
+  Integer hello(Integer x, String y) {
+     Integer x 
      x 2
   }
 }

@@ -1,9 +1,8 @@
-type package = {    
-    include io.file
-    include util.file
+module package {    
+
 }
 
-type utilTest = {
-    include test.file
+module utilTest {
+
 }
      

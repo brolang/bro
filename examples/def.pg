@@ -1,7 +1,6 @@
 
-type module = {
-    case len "hello" equal 0 = {
+module {
+    case "hello" len equal 0 {
         print "hello"
     }
-
 }

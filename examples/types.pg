@@ -1,2 +1,2 @@
 
-type function() = d String "hello"    
+function() String  d 

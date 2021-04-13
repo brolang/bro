@@ -1,7 +1,7 @@
 
-type hello = {
-  type sayHello(name String) = {
-      include "stdin"
+module hello {
+
+  sayHello(name String) {
       stdin.print "hello" + name
   }
 }
