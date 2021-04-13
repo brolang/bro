@@ -4,7 +4,8 @@
 #define elif else if
 
 enum Keyword {
-    None, case_keyword, loop_keyword, type_keyword, catch_keyword, macro_keyword
+    None, case_keyword, loop_keyword, type_keyword, catch_keyword, macro_keyword,
+    module_keyword, abstract_keyword, design_keyword, code_keyword
 };
 
 enum Literal {

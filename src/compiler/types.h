@@ -10,24 +10,32 @@ struct Value {
     char identifier[1024];
 };
 
-struct Map {
+struct List {
     struct Value key;
     struct Value value;
 };
 
-struct Block {
+struct Declaration {
+    struct Value type;
+    struct Value listofvalues;
+};
+
+struct MethodCall {
     struct Value identifier;
     struct Value method;
-    struct Map   args;
+    struct Value listofargs;
 };
 
-struct Record {
-    struct Value identifer;
-    struct Value type;
-    struct Block block;
+struct Case {
+    enum Literal result;
 };
 
-struct Error {
-     struct Value reason;
-     struct Value solution;
+struct Loop {
+     
 };
+
+struct Module {
+
+};
+
+

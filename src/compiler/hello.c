@@ -18,7 +18,13 @@ struct {
 
 enum Keyword returnKeyword(char* token){
     
-    if(token[0] == 'm' && token[1] == 'o' && token[2] == 'd' && token[3] == 'u' && token[4] == 'l' && token[5] == 'e')
+    if(token[0] == 'a' && token[1] == 'b' && token[2] == 's' && token[3] == 't' && token[4] == 'r' && token[5] == 'a' && token[6] == 'c' && token[7] == 't')
+	    return abstract_keyword;
+    elif(token[0] == 'd' && token[1] == 'e' && token[2] == 's' && token[3] == 'i' && token[4] == 'g' && token[5] == 'n')
+	    return design_keyword;
+    elif(token[0] == 'c' && token[1] == 'o' && token[2] == 'd' && token[3] == 'e')
+	    return code_keyword;
+    elif(token[0] == 'm' && token[1] == 'o' && token[2] == 'd' && token[3] == 'u' && token[4] == 'l' && token[5] == 'e')
 	    return module_keyword;
     elif(token[0] == 'c' && token[1] == 'a' && token[2] == 's' && token[3] == 'e')
 	    return case_keyword;
@@ -162,26 +168,6 @@ int parseFile(char* name) {
     return 0;
 }
 
-struct Value nextValue() {
-     struct Value value;
-     struct Token token;
-
-     token = tokenNext();
-
-     strcat(value.identifier, token.identifier);
-     return value;
-}
-
-struct Map nextMap() {
-     struct Map map;
-     map.key = nextValue();
-     map.value = nextValue();
-     return map;
-}
-
-struct Record nextRecord() {
-     struct Record record;
-}
 
 //struct List nextList(struct Token token) {
 //
