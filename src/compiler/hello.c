@@ -176,6 +176,10 @@ struct Map nextMap() {
      return map;
 }
 
+struct Record nextRecord() {
+     struct Record record;
+}
+
 //struct List nextList(struct Token token) {
 //
 //}
