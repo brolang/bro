@@ -1,9 +1,11 @@
 #include "hello.h"
+#include "types.h"
+
 #include <stdio.h>
 
 enum Keyword currentKeyword;
 
-int lookup(char *Buffer) {
+int lookup(char buffer[1024]) {
     enum Keyword keyword;
     keyword = returnKeyword(buffer);
 }
@@ -15,19 +17,10 @@ int interpret(char buffer[1024]) {
     
 }
 
-int interpretBlock() {
-    struct Block block;
-    block.identifier = nextValue();
-    block.method = nextValue();
-    if(args)
-	  block.args = nextMap();
+int interpretBlock(struct Block block) {
 }
 
-int interpretRecord() {
-    struct Record record;
-    record.identifier = nextValue();
-    record.type = nextValue();
-    record.block = interpretBlock();
+int interpretRecord(struct Record record) {
 }
 
 

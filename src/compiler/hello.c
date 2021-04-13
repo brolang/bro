@@ -165,7 +165,7 @@ struct Value nextValue() {
 
      token = tokenNext();
 
-     value.identifier = token.identifier;
+     strcat(value.identifier, token.identifier);
      return value;
 }
 
