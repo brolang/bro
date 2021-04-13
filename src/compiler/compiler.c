@@ -15,6 +15,10 @@ int compile() {
     return 0;
 }
 
+int run() {
+
+}
+
 int stats_syntax() {
     return 0;     
 }

@@ -1,4 +1,5 @@
 #include "hello.h"
+#include "types.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -10,7 +11,6 @@ struct {
     char* source;
     int source_pos;
     char identifier[1024];
-    enum Token token;
     int source_length;
     int line_number;
 } Parser;
@@ -28,7 +28,7 @@ enum Keyword returnKeyword(char* token){
     elif(token[0] == 'm' && token[1] == 'a' && token[2] == 'c' && token[3] == 'o')
 	    return macro_keyword;
     else
-	    return identifier;
+	    return None;
 }
 
 enum Literal returnInteger(char* buffer,int length) {
@@ -51,96 +51,91 @@ enum Literal returnBoolean(char* buffer, int length) {
         return false_literal;
 }
 
-struct node {
+struct Token {
    char* identifier;
    int lineno;
    int length;
-   struct node* next;
+   int position;
 };
 
-struct node table;
-enum Token currentToken;
-
-
-enum Type getType(enum Token current) {
+struct Token returnToken(char* identifier, int lineno, int length, int position) {
+    struct Token token;
+    token.identifier = identifier;
+    token.lineno = lineno;
+    token.length = length;
+    token.position = position;
 }
 
-int next() {
-   if(Parser.token == module_keyword)
-       module_statement();
-   elif(Parser.token == function_keyword)
-       function_statement();
-   elif(Parser.token == loop_keyword)
-       loop_statement();
-   return 0;
+
+struct Token nextToken;
+
+
+enum Kind getKind(struct Token token) {
+
 }
 
-int insert(char* buffer, int length) {
-   struct node *temp = NULL;
-   temp = &table;
-   if (temp->token == None) {
-      temp->token = token;
-      return 0;
-   }
+int setNextToken(struct Token token) {
+    nextToken = token;
 
-   while(temp->next != NULL)
-      temp = temp->next;
-   
-   if(temp->next == NULL) {
-      temp->next = malloc(sizeof(struct node));
-      temp->next->identifier = buffer;
-      temp->next->length = length;
-   }
-   return 0;
 }
 
+struct Token tokenNext() {
+    return nextToken;
+}
+
+enum Seperator nextSeperator;
+
+int setNextSeperator(enum Seperator seperator) {
+    nextSeperator = seperator;
+}
+
+int seperatorNext() {
+    return nextSeperator;
+}
 
 
 
 enum Seperator parseSeperator(char seperator) {
     if(seperator == ' ') 
-        return SPACE;
-    elif(seperator == '\n') {
-        Parser.line_number = Parser.line_number + 1;
-        return NEWLINE;
-    } elif(seperator == '{')
-        return LEFT_CURLY_BRACE;
+        setNextSeperator(SPACE);
+    elif(seperator == '\n')
+        setNextSeperator(NEWLINE);
+    elif(seperator == '{')
+        setNextSeperator(LEFT_CURLY_BRACE);
     elif(seperator == '}')
-	    return RIGHT_CURLY_BRACE;
+	setNextSeperator(RIGHT_CURLY_BRACE);
     elif(seperator == '(')
-	    return LEFT_PARENTHESIS;
+	setNextSeperator(LEFT_PARENTHESIS);
     elif(seperator == ')')
-	    return RIGHT_PARENTHESIS;
-    elif(seperator == ',')
-	    return COMMA;
-    elif(seperator == ':') 
-	    return  COLON;
+	setNextSeperator(RIGHT_PARENTHESIS);
     else
         return NoneSeperator;
 }
 
-enum Token parse() {
+int parse() {
     //printf("%d",Parser.source_pos);
     char buffer[1024]={0};
-    int pos = 0;
+    int length = 0;
     int flag = 0;
-    
+    int position = 0;
     while(Parser.source_pos < Parser.source_length && Parser.source[Parser.source_pos]!='\0') {
 	    if(parseSeperator(Parser.source[Parser.source_pos])!=NoneSeperator) {
 	        if(flag == 0) {
-	            insert(buffer,pos);
-		        flag = 1;
-		        pos = 0;
-		        memset(buffer, 0, sizeof(buffer));
+	            struct Token token = returnToken(buffer,Parser.line_number,length,position - length);		
+	            setNextToken(token);
+		    flag = 1;
+		    length = 0;
+		    memset(buffer, 0, sizeof(buffer));
 	       }
 	       Parser.source_pos = Parser.source_pos + 1;
 	   } else {
-	       buffer[pos] = Parser.source[Parser.source_pos];
-	       pos = pos + 1;
+	       buffer[length] = Parser.source[Parser.source_pos];
+	       length = length + 1;
 	       Parser.source_pos = Parser.source_pos + 1;
 	       if(flag == 1)
 	           flag = 0;
 	   }
+	   position = position + 1;
     }
 }
 
@@ -163,4 +158,25 @@ int parseFile(char* name) {
     initParser(buffer,i);
     return 0;
 }
+
+struct Value nextValue() {
+     struct Value value;
+     struct Token token;
+
+     token = tokenNext();
+
+     value.identifier = token.identifier;
+     return value;
+}
+
+struct Map nextMap() {
+     struct Map map;
+     map.key = nextValue();
+     map.value = nextValue();
+     return map;
+}
+
+//struct List nextList(struct Token token) {
+//
+//}
 

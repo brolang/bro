@@ -12,10 +12,7 @@ int lookup(char *Buffer) {
 
 int interpret(char buffer[1024]) {
     lookup(buffer);
-    if(currentKeyword == identifier)
-        interpretBlock();
-    else 
-	    interpretRecord();
+    
 }
 
 int interpretBlock() {

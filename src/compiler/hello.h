@@ -16,22 +16,21 @@ enum Kind {
 };
 
 enum Seperator { 
-    NoneSeperator, COLON, COMMA, SPACE, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, LEFT_CURLY_BRACE, RIGHT_CURLY_BRACE,
+    NoneSeperator, SPACE, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, LEFT_CURLY_BRACE, RIGHT_CURLY_BRACE,
     SQUARE_BRACKET, NEWLINE                                                               
 };
 
 int initParser(char* source, int source_length);
-int insert(enum Token token);
-int next();
 int parse();
 
 //literals
 enum Literal returnInteger(char* buffer, int length);
 enum Literal returnString(char* buffer, int length);
+enum Literal returnBoolean(char* buffer, int length);
 
-int noMoreTokens();
-int checkSeperator(char c);
-int checkEol();
+struct Token next();
+struct Value nextValue();
+struct Map nextMap();
 
 
 void module_statement();

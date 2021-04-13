@@ -3,23 +3,23 @@
 struct Container {
     int size;
     int memory;
-}
+};
 
 struct Value {
-    buffer Container;
+    struct Container buffer;
     char identifier[1024];
-}
+};
 
 struct Map {
     struct Value key;
     struct Value value;
-}
+};
 
 struct Block {
     struct Value identifier;
     struct Value method;
     struct Map   args;
-}
+};
 
 struct Record {
     struct Value identifer;
@@ -28,6 +28,6 @@ struct Record {
 };
 
 struct Error {
-     reason Value;
-     solution Value;
-}
+     struct Value reason;
+     struct Value solution;
+};
