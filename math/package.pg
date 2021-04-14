@@ -1,0 +1,9 @@
+
+
+module {
+
+   design {
+       package.title "math"
+   }
+
+}
