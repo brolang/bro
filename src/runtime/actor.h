@@ -1,8 +1,14 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
-struct Actor {
-
+enum ActorState {
+    DONE, PENDING, ERROR
 }
+
+struct Actor {
+    int identifier;
+    enum ActorState state;
+};
+
 
 #endif

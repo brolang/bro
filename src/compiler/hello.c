@@ -117,6 +117,8 @@ enum Seperator parseSeperator(char seperator) {
 	setNextSeperator(LEFT_PARENTHESIS);
     elif(seperator == ')')
 	setNextSeperator(RIGHT_PARENTHESIS);
+    elif(seperator == '.')
+	setNextSeperator(DOT);
     else
         return NoneSeperator;
 }

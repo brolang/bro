@@ -1,0 +1,9 @@
+
+macro hello_world {
+    print "hello, world"
+}
+
+(hello_world)
+loop x.equal 0 {
+    
+}

@@ -1,4 +1,6 @@
 
+#ifndef TYPES_H
+#define TYPES_H
 
 struct Container {
     int size;
@@ -9,6 +11,11 @@ struct Value {
     struct Container buffer;
     char identifier[1024];
 };
+
+struct Variant {
+
+};
+
 
 struct List {
     struct Value key;
@@ -38,4 +45,4 @@ struct Module {
 
 };
 
-
+#endif

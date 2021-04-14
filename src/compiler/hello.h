@@ -17,9 +17,7 @@ enum Kind {
 };
 
 enum Seperator { 
-    NoneSeperator, SPACE, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, LEFT_CURLY_BRACE, RIGHT_CURLY_BRACE,
-    SQUARE_BRACKET, NEWLINE                                                               
-};
+    NoneSeperator, SPACE, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, LEFT_CURLY_BRACE, RIGHT_CURLY_BRACE, SQUARE_BRACKET, NEWLINE, DOT                                                           };
 
 int initParser(char* source, int source_length);
 int parse();
