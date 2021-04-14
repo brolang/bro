@@ -1,0 +1,8 @@
+
+object HelloWorld {
+    HelloWorld.String world
+
+    Unit say() {
+        print HelloWorld.String world
+    }
+}
