@@ -13,10 +13,6 @@ enum Literal {
     integer_literal, double_literal, float_literal, string_literal, true_literal, false_literal
 };
 
-enum Kind {
-    Keyword, Literal, Block
-};
-
 enum Seperator { 
     NoneSeperator, SPACE, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, LEFT_CURLY_BRACE, RIGHT_CURLY_BRACE, SQUARE_BRACKET, NEWLINE, DOT
 };
@@ -38,9 +34,8 @@ struct Token {
 };
 
 
+int interpret(struct Token token);
+int interpretSeperator(enum Seperator seperator);
 
-void module_statement();
-void loop_statement();
-void function_statement();
 
 #endif

@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 enum Position {
-    module, module_name, case_position, loop, expression, block
+    new_module, module_name, case_position, loop_block, expression, block
 };
 
 enum Position current;
@@ -38,22 +38,6 @@ int interpretSeperator(enum Seperator seperator) {
 }
 
 
-int interpret(struct Token token) {
-    currentToken = token;
-    lookup(token.identifier);
-    if(started == 0) {
-        started = 1;
-        current = module;
-    }
-
-    if(current == module)
-        interpret_module(token.identifier);
-    elif(current == case_position)
-        interpret_case(token.identifier);
-    elif(current = loop)
-        interpret_loop(token.identifier);
-}
-
 int interpret_identifier(char* buffer) {
     enum Keyword keyword = returnKeyword(buffer);
     if(keyword != None)
@@ -80,7 +64,7 @@ int interpret_boolean(char* buffer) {
 
 int interpret_expression(char* buffer) {
     if(blockIsOpen) {
-        current = Block;
+        current = block;
     } else {
         if(kind == variable) 
             interpret_identifier(buffer);
@@ -116,7 +100,19 @@ int interpret_loop(char* buffer) {
     current = expression;
 }
 
+int interpret(struct Token token) {
+    currentToken = token;
+    lookup(token.identifier);
+    if(started == 0) {
+        started = 1;
+        current = module;
+    }
 
-
-
+    if(current == module)
+        interpret_module(token.identifier);
+    elif(current == case_position)
+        interpret_case(token.identifier);
+    elif(current = loop)
+        interpret_loop(token.identifier);
+}
 

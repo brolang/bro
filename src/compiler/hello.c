@@ -1,6 +1,6 @@
 #include "hello.h"
 #include "types.h"
-
+#include "../stats/stats.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -62,12 +62,7 @@ enum Literal returnBoolean(char* buffer, int length) {
         return false_literal;
 }
 
-struct Token {
-   char* identifier;
-   int lineno;
-   int length;
-   int position;
-};
+
 
 struct Token returnToken(char* identifier, int lineno, int length, int position) {
     struct Token token;
