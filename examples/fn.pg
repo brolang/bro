@@ -1,6 +1,6 @@
 
 module HelloModule {
-  hello {
+  hello() {
     String h
     
        Integer hello()  {
@@ -10,7 +10,7 @@ module HelloModule {
 
            case b equal "call" {
                Integer x 
-	       x add 2
+	           x add 2
                //lambda syntax
                Integer x(Integer z ,Integer b)  z add b 
                loop i notequal 0 {

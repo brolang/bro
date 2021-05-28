@@ -23,6 +23,7 @@ enum Seperator {
 int initParser(char* source, int source_length);
 int parse();
 
+enum Keyword returnKeyword(char* buffer);
 //literals
 enum Literal returnInteger(char* buffer, int length);
 enum Literal returnString(char* buffer, int length);

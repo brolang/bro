@@ -75,6 +75,7 @@ struct Token returnToken(char* identifier, int lineno, int length, int position)
     token.lineno = lineno;
     token.length = length;
     token.position = position;
+    return token;
 }
 
 
@@ -114,13 +115,13 @@ enum Seperator parseSeperator(char seperator) {
     elif(seperator == '{')
         setNextSeperator(LEFT_CURLY_BRACE);
     elif(seperator == '}')
-	setNextSeperator(RIGHT_CURLY_BRACE);
+	    setNextSeperator(RIGHT_CURLY_BRACE);
     elif(seperator == '(')
-	setNextSeperator(LEFT_PARENTHESIS);
+	    setNextSeperator(LEFT_PARENTHESIS);
     elif(seperator == ')')
-	setNextSeperator(RIGHT_PARENTHESIS);
+	    setNextSeperator(RIGHT_PARENTHESIS);
     elif(seperator == '.')
-	setNextSeperator(DOT);
+	    setNextSeperator(DOT);
     else
         return NoneSeperator;
 }
@@ -135,10 +136,10 @@ int parse() {
 	    if(parseSeperator(Parser.source[Parser.source_pos])!=NoneSeperator) {
 	        if(flag == 0) {
 	            struct Token token = returnToken(buffer,Parser.line_number,length,position - length);		
-	            setNextToken(token);
-		    flag = 1;
-		    length = 0;
-		    memset(buffer, 0, sizeof(buffer));
+	            interpret(token.identifier);
+		        flag = 1;
+		        length = 0;
+		        memset(buffer, 0, sizeof(buffer));
 	       }
 	       Parser.source_pos = Parser.source_pos + 1;
 	   } else {
@@ -147,6 +148,7 @@ int parse() {
 	       Parser.source_pos = Parser.source_pos + 1;
 	       if(flag == 1)
 	           flag = 0;
+           interpretSeperator(nextSeperator);
 	   }
 	   position = position + 1;
     }
