@@ -1,18 +1,20 @@
 #include "hello.h"
 #include "types.h"
+#include "../stats/stats.h"
 
 #include <stdio.h>
 
 enum Position {
-    module, module_name, case_position, expression, block
+    module, module_name, case_position, loop, expression, block
 };
 
 enum Position current;
+enum Kind kind;
 int blockIsOpen = 0;
 int isPrototypeCall = 0;
 int isMethod = 0;
 int started = 0;
-
+struct Token currentToken;
 
 
 int lookup(char buffer[1024]) {
@@ -36,36 +38,58 @@ int interpretSeperator(enum Seperator seperator) {
 }
 
 
-int interpret(char buffer[1024]) {
-    lookup(buffer);
+int interpret(struct Token token) {
+    currentToken = token;
+    lookup(token.identifier);
     if(started == 0) {
         started = 1;
         current = module;
     }
 
     if(current == module)
-        interpret_module(buffer);
+        interpret_module(token.identifier);
     elif(current == case_position)
-        interpret_case(buffer);
+        interpret_case(token.identifier);
+    elif(current = loop)
+        interpret_loop(token.identifier);
 }
 
 int interpret_identifier(char* buffer) {
-    int isIdentifier = returnIdentifier();
-    if(!isIdentifier)
-        printf("expected identifier")
+    enum Keyword keyword = returnKeyword(buffer);
+    if(keyword != None)
+        printf("expected identifier");
+}
+
+int interpret_integer(char* buffer) {
+    enum Literal literal = returnInteger(buffer,currentToken.length);
+    if(literal != integer_literal)
+        printf("expected integer");
+}
+
+int interpret_string(char* buffer) {
+    enum Literal literal = returnString(buffer,currentToken.length);
+    if(literal != string_literal)
+        printf("expected string");
+}
+
+int interpret_boolean(char* buffer) {
+    enum Literal literal = returnBoolean(buffer,currentToken.length);
+    if(literal != true_literal || literal != false_literal)
+        printf("expected boolean");
 }
 
 int interpret_expression(char* buffer) {
     if(blockIsOpen) {
-        current = block;
+        current = Block;
     } else {
-        interpret_identifier(buffer);
+        if(kind == variable) 
+            interpret_identifier(buffer);
     }
 }
 
 int interpret_block(char* buffer) {
     if(!blockIsOpen) {
-        current = next;
+        
     } else {
         interpret_expression(buffer);
     }

@@ -1,4 +1,4 @@
 
-macro feature_let = {
+macro feature_let {
     enable_keyword let_keyword;
 }

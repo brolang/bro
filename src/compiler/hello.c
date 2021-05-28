@@ -136,7 +136,7 @@ int parse() {
 	    if(parseSeperator(Parser.source[Parser.source_pos])!=NoneSeperator) {
 	        if(flag == 0) {
 	            struct Token token = returnToken(buffer,Parser.line_number,length,position - length);		
-	            interpret(token.identifier);
+	            interpret(token);
 		        flag = 1;
 		        length = 0;
 		        memset(buffer, 0, sizeof(buffer));
