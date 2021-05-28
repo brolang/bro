@@ -36,7 +36,7 @@ enum Keyword returnKeyword(char* token){
 	    return catch_keyword;
     elif(token[0] == 't' && token[1] == 'y' && token[2] == 'p' && token[3] == 'e')
 	    return type_keyword;
-    elif(token[0] == 'm' && token[1] == 'a' && token[2] == 'c' && token[3] == 'o')
+    elif(token[0] == 'm' && token[1] == 'a' && token[2] == 'c' && token[3] == 'r' || token[4] == 'o')
 	    return macro_keyword;
     else
 	    return None;

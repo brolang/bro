@@ -1,5 +1,2 @@
-code String {
-    String() {
-        
-    }    
+type String {  
 }

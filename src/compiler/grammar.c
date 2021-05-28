@@ -5,7 +5,8 @@
 #include <stdio.h>
 
 enum Position {
-    new_module, module_name, case_position, loop_block, expression, block
+    new_module, name, case_position, loop_block, 
+    expression, block, object, type, macro
 };
 
 enum Position current;
@@ -25,6 +26,7 @@ int lookup(char buffer[1024]) {
 
 int interpretSeperator(enum Seperator seperator) {
     if(seperator == LEFT_CURLY_BRACE){
+        current = block;
         blockIsOpen = 1;
     } elif(seperator == RIGHT_CURLY_BRACE) {
         blockIsOpen = 0;
@@ -83,7 +85,7 @@ int interpret_module(char* buffer) {
     enum Keyword keyword = returnKeyword(buffer);
     if(keyword != module_keyword)
         printf("expected module keyword\n");
-    
+    current = identifier;
 }
 
 int interpret_case(char* buffer) {
@@ -100,6 +102,27 @@ int interpret_loop(char* buffer) {
     current = expression;
 }
 
+int interpret_type(char* buffer) {
+    enum Keyword keyword = returnKeyword(buffer);
+    if(keyword != type_keyword)
+        printf("expected type keyword");
+    current = name;
+}
+
+int interpret_object(char* buffer) {
+    enum Keyword keyword = returnKeyword(buffer);
+    if(keyword != object_keyword)
+        printf("expected object keyword");
+    current = name;
+}
+
+int interpret_macro(char* buffer) {
+    enum Keyword keyword = returnKeyword(buffer);
+    if(keyword != macro_keyword)
+        printf("expected macro keyword");
+    current = name;
+}
+
 int interpret(struct Token token) {
     currentToken = token;
     lookup(token.identifier);
@@ -112,7 +135,13 @@ int interpret(struct Token token) {
         interpret_module(token.identifier);
     elif(current == case_position)
         interpret_case(token.identifier);
-    elif(current = loop)
+    elif(current == loop)
         interpret_loop(token.identifier);
+    elif(current == object)
+        interpret_object(token.identifier);
+    elif(current == type)
+        interpret_type(token.identifier);
+    elif(current == macro)
+        interpret_macro(token.identifier);
 }
 

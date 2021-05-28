@@ -5,7 +5,8 @@ enum Kind last;
 enum Kind next;
 
 enum Kind {
-    variable, functioncall, literal, identifier, condition, module, case_kind, loop
+    variable, functioncall, literal, identifier, condition, 
+    module, case_kind, loop
 };
 
 #endif

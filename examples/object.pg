@@ -1,7 +1,7 @@
 
 object HelloWorld {
-    HelloWorld.String world
-
+    String HelloWorld.world
+    Integer this.hello
     Unit say() {
         print HelloWorld.String world
     }

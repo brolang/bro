@@ -1,9 +1,12 @@
 
 
 module {
-
-   design {
-       package.title "math"
+   repo "https://ping.preet/index"
+   author {
+       name "Krishna Satya"
+       url "https://github.com/preetorg"
    }
-
+   dependencies {
+       package "ffi"
+   }
 }
