@@ -3,7 +3,7 @@
 
 enum ActorState {
     DONE, PENDING, ERROR
-}
+};
 
 struct Actor {
     int identifier;

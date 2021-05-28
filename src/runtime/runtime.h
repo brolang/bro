@@ -1,5 +1,5 @@
-#ifndef POWER_H
-#define POWER_H
+#ifndef RUNTIME_H
+#define RUNTIME_H
 
 int execute_variable();
 int execute_operator();

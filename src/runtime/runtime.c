@@ -1,8 +1,9 @@
+#include "runtime.h"
 
 struct Context {
      struct Memory heap;	
-     struct Stack callstack     
-}
+     struct Stack callstack;     
+};
 
 int setState(struct Context context) {
 

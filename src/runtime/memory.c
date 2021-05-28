@@ -2,26 +2,24 @@
 
 struct Memory {
     size_t type;
-    void* location;
     int priority;
-}
+};
 
-struct Memory queue;
+struct Memory* queue;
 int head = 0;
 int tail = 0;
 int queue_length = 0;
 
-int init_queue(struct Memory heap) {
-     heap = calloc(sizeof(struct Memory), 1);
-     queue = heap;
+struct Memory* init_queue() {
+     queue = malloc(sizeof(struct Memory));
      queue_length = 0;
+     return queue;
 }
 
 int insert(size_t type, void *data, int priority) {
     if (tail == queue_length)
         tail = 1;
     queue[tail].type = type;
-    queue[tail].data = data;
     queue[tail].priority = priority;
     tail = tail + 1;
 }
