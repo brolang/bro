@@ -12,4 +12,4 @@ immutablerecord #{
 }
 
 list String{"hello","world"}
-immutablelist String{"hello", "world"}
+immutablelist #String{"hello", "world"}
