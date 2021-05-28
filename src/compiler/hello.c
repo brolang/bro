@@ -169,8 +169,6 @@ int parseFile(char* name) {
     return 0;
 }
 
-
-//struct List nextList(struct Token token) {
-//
-//}
-
+int main(int argc, char** argv) {
+    parseFile(argv[1]);
+}

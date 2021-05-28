@@ -4,7 +4,6 @@
 
 int debug(char* source, int len) {
     initParser(source, len);
-    compile();
     return 0;
 }
 
@@ -34,7 +33,3 @@ int brodebug() {
     return 0;
 }
 
-int main() {
-    brodebug();
-    input();
-}

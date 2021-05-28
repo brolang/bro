@@ -4,7 +4,6 @@
 
 int eval(char* source,int i) {
     initParser(source,i);
-    compile();
     return 0;
 }
 
@@ -29,7 +28,3 @@ int info() {
     printf("\n");
 }
 
-int main() {
-    info();
-    input();
-}
