@@ -32,7 +32,7 @@ enum Keyword returnKeyword(char* token){
 	    return case_keyword;
     elif(token[0] == 'l' && token[1] == 'o' && token[2] == 'o' && token[3] == 'p')
 	    return loop_keyword;
-    elif(token[0] == 'c' && token[1] == 'a' && token[2] == 'c' && token[3] == 't' && token[4] == 'c' && token[5] == 'h')
+    elif(token[0] == 'c' && token[1] == 'a' && token[2] == 't' && token[3] == 'c' && token[4] == 'h')
 	    return catch_keyword;
     elif(token[0] == 't' && token[1] == 'y' && token[2] == 'p' && token[3] == 'e')
 	    return type_keyword;

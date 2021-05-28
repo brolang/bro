@@ -1,0 +1,11 @@
+service hello {
+    case Complete {
+
+    }
+
+    case Started { 
+        catch Exception{
+            
+        }
+    }
+}
