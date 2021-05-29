@@ -1,3 +1,4 @@
+#include "runtime.h"
 #include "stdlib.h"
 
 struct Page {

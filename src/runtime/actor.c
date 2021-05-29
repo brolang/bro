@@ -1,6 +1,7 @@
+#include "runtime.h"
 #include "actor.h"
 
-int spawn() {
+int spawn(struct Frame frame) {
 
 }
 

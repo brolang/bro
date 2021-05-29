@@ -11,6 +11,7 @@ struct Block {
     enum Keyword keyword;
     struct Expression list;
     struct Block* blocks;
+    int numberOfBlocks;
 };
 
 struct Program {

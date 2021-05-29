@@ -42,24 +42,22 @@ enum Keyword returnKeyword(char* token){
 	    return None;
 }
 
-enum Literal returnInteger(char* buffer,int length) {
-	int i = 0;
-	while(i < length  && isdigit(buffer[i])) {
-            i = i + 1;
-	}
-	return integer_literal;
-}
 
-enum Literal returnString(char* buffer, int length) {
-	if(buffer[0] == '"' && buffer[length-1] == '"')
-		return string_literal;
-}
 
-enum Literal returnBoolean(char* buffer, int length) {
+enum Literal returnLiteral(char* buffer, int length) {
+    int i = 0;
     if(buffer[0] == 't' && buffer[1] == 'r' && buffer[2] == 'u' && buffer[3] == 'e')
         return true_literal;
     elif(buffer[0] == 'f' && buffer[1] == 'a' && buffer[2] == 'l' && buffer[3] == 's' && buffer[4] == 'e')
         return false_literal;
+    elif(buffer[0] == '"' && buffer[length-1] == '"')
+		return string_literal;
+    else {
+        while(i < length  && isdigit(buffer[i])) {
+            i = i + 1;
+	    }
+	    return integer_literal;
+    }
 }
 
 

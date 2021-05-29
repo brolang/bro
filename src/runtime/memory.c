@@ -1,9 +1,7 @@
+#include "runtime.h"
 #include "stdlib.h"
 
-struct Memory {
-    size_t type;
-    int priority;
-};
+
 
 struct Memory* queue;
 int head = 0;

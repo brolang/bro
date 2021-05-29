@@ -1,16 +1,10 @@
 #include "runtime.h"
-
-struct Frame {
-    struct Call call;
-    struct Frame* next;
-};
-
-struct Frame root;
-
+#include "actor.h"
 int eventloop() {
   
-    while(!isDone()) {
-
+    while(frame_hasnext()) {
+        spawn(frame_get());
+        sync();
     }
 
 }

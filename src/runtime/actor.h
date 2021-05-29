@@ -9,6 +9,7 @@ struct Actor {
     int identifier;
     enum ActorState state;
 };
-
+int spawn(struct Frame frame);
+int sync();
 
 #endif

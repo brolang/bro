@@ -1,5 +1,6 @@
 #include "hello.h"
 #include "types.h"
+#include "compiler.h"
 #include "../stats/stats.h"
 
 #include <stdio.h>
@@ -16,7 +17,7 @@ int isPrototypeCall = 0;
 int isMethod = 0;
 int started = 0;
 struct Token currentToken;
-
+enum Keyword currentKeyword;
 
 int lookup(char buffer[1024]) {
     enum Keyword keyword;
@@ -39,28 +40,27 @@ int interpretSeperator(enum Seperator seperator) {
     } 
 }
 
+struct Token identifier;
+struct Token functioncall;
 
 int interpret_identifier(char* buffer) {
     enum Keyword keyword = returnKeyword(buffer);
     if(keyword != None)
         printf("expected identifier");
+    if(current == name);
+        create_expression(currentToken,functioncall);
+
 }
 
-int interpret_integer(char* buffer) {
+int interpret_literal(char* buffer) {
     enum Literal literal = returnInteger(buffer,currentToken.length);
     if(literal != integer_literal)
         printf("expected integer");
-}
-
-int interpret_string(char* buffer) {
-    enum Literal literal = returnString(buffer,currentToken.length);
-    if(literal != string_literal)
+    elif(literal != string_literal)
         printf("expected string");
-}
-
-int interpret_boolean(char* buffer) {
-    enum Literal literal = returnBoolean(buffer,currentToken.length);
-    if(literal != true_literal || literal != false_literal)
+    elif(literal != true_literal)
+        printf("expected boolean");
+    elif(literal != false_literal)
         printf("expected boolean");
 }
 
@@ -75,7 +75,7 @@ int interpret_expression(char* buffer) {
 
 int interpret_block(char* buffer) {
     if(!blockIsOpen) {
-        
+        returnToParentBlock();
     } else {
         interpret_expression(buffer);
     }
@@ -85,7 +85,8 @@ int interpret_module(char* buffer) {
     enum Keyword keyword = returnKeyword(buffer);
     if(keyword != module_keyword)
         printf("expected module keyword\n");
-    current = identifier;
+    current = name;
+    init_module();
 }
 
 int interpret_case(char* buffer) {
@@ -93,6 +94,8 @@ int interpret_case(char* buffer) {
     if(keyword != case_keyword)
         printf("expected case keyword\n");
     current = expression;
+    currentKeyword = keyword;
+    create_block(keyword);
 }
 
 int interpret_loop(char* buffer) {
@@ -100,6 +103,8 @@ int interpret_loop(char* buffer) {
     if(keyword != loop_keyword)
         printf("expected loop keyword");
     current = expression;
+    currentKeyword = keyword;
+    create_block(keyword);
 }
 
 int interpret_type(char* buffer) {
@@ -107,6 +112,8 @@ int interpret_type(char* buffer) {
     if(keyword != type_keyword)
         printf("expected type keyword");
     current = name;
+    currentKeyword = keyword;
+    create_block(keyword);
 }
 
 int interpret_object(char* buffer) {
@@ -114,6 +121,8 @@ int interpret_object(char* buffer) {
     if(keyword != object_keyword)
         printf("expected object keyword");
     current = name;
+    currentKeyword = keyword;
+    create_block(keyword);
 }
 
 int interpret_macro(char* buffer) {
@@ -121,6 +130,8 @@ int interpret_macro(char* buffer) {
     if(keyword != macro_keyword)
         printf("expected macro keyword");
     current = name;
+    currentKeyword = keyword;
+    create_block(keyword);
 }
 
 int interpret(struct Token token) {
