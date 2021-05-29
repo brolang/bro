@@ -170,5 +170,6 @@ int parseFile(char* name) {
 }
 
 int main(int argc, char** argv) {
-    parseFile(argv[1]);
+    if(argc > 1)
+        parseFile(argv[1]);
 }

@@ -129,6 +129,18 @@ int interpret(struct Token token) {
     if(started == 0) {
         started = 1;
         current = module;
+    } else {
+        enum Keyword keyword = returnKeyword(currentToken.identifier);
+        if(keyword == case_keyword)
+            current = case_position;
+        elif(keyword == loop_keyword)
+            current = loop;
+        elif(keyword == object_keyword)
+            current = object;
+        elif(keyword = type_keyword)
+            current = type;
+        elif(keyword = macro_keyword)
+            current = macro;
     }
 
     if(current == module)
