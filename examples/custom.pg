@@ -1,7 +1,6 @@
 
 module hello {
-
-  sayHello(name String) {
-      stdin.print "hello" + name
+  sayHello(name String) Unit{
+      stdin.print "hello".concat name
   }
 }

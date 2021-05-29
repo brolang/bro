@@ -9,14 +9,14 @@ enum Code {
 
 };
 
-core_declare();
-core_init();
-core_get();
-core_calladd();
-core_callmul();
-core_calldiv();
-core_callsub();
-core_block();
-core_jump();
-core_compare();
+int core_declare();
+int core_init();
+int core_get();
+int core_calladd();
+int core_callmul();
+int core_calldiv();
+int core_callsub();
+int core_block();
+int core_jump();
+int core_compare();
 #endif

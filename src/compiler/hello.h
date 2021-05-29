@@ -10,21 +10,20 @@ enum Keyword {
 };
 
 enum Literal {
-    integer_literal, double_literal, float_literal, string_literal, true_literal, false_literal
+    none_literal,integer_literal, double_literal, float_literal, string_literal, true_literal, false_literal
 };
 
 enum Seperator { 
-    NoneSeperator, SPACE, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, LEFT_CURLY_BRACE, RIGHT_CURLY_BRACE, SQUARE_BRACKET, NEWLINE, DOT
+    NoneSeperator, SPACE, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, 
+    LEFT_CURLY_BRACE, RIGHT_CURLY_BRACE, SQUARE_BRACKET, NEWLINE, DOT,
+    HASH, COLON
 };
 
 int initParser(char* source, int source_length);
 int parse();
 
 enum Keyword returnKeyword(char* buffer);
-//literals
-enum Literal returnInteger(char* buffer, int length);
-enum Literal returnString(char* buffer, int length);
-enum Literal returnBoolean(char* buffer, int length);
+enum Literal returnLiteral(char* buffer, int length);
 
 struct Token {
    char* identifier;

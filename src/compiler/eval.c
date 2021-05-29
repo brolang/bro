@@ -28,3 +28,7 @@ int info() {
     printf("\n");
 }
 
+int main() {
+    info();
+    input();
+}

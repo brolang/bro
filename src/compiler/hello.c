@@ -56,7 +56,10 @@ enum Literal returnLiteral(char* buffer, int length) {
         while(i < length  && isdigit(buffer[i])) {
             i = i + 1;
 	    }
-	    return integer_literal;
+        if(i == length - 1)
+	        return integer_literal;
+        else
+            return none_literal;
     }
 }
 
@@ -167,7 +170,3 @@ int parseFile(char* name) {
     return 0;
 }
 
-int main(int argc, char** argv) {
-    if(argc > 1)
-        parseFile(argv[1]);
-}

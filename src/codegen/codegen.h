@@ -2,7 +2,7 @@
 #define CODEGEN_H
 
 struct CodegenExpression {
-
+    
 };
 
 struct CodegenBlock {

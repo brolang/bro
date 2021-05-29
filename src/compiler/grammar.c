@@ -40,36 +40,45 @@ int interpretSeperator(enum Seperator seperator) {
     } 
 }
 
-struct Token identifier;
-struct Token functioncall;
+int expression_flag = 0;
+struct Token expression_identifier;
+struct Token expression_functioncall;
+
+int set_expression_identifier(struct Token token) {
+    expression_identifier = token;
+}
+
+int set_expression_functioncall(struct Token token) {
+    expression_functioncall = token;
+}
 
 int interpret_identifier(char* buffer) {
     enum Keyword keyword = returnKeyword(buffer);
     if(keyword != None)
         printf("expected identifier");
-    if(current == name);
-        create_expression(currentToken,functioncall);
-
+    if(expression_flag == 0)
+        set_expression_identifier(currentToken);
+    elif(expression_flag == 1)
+        set_expression_functioncall(currentToken);
 }
 
 int interpret_literal(char* buffer) {
-    enum Literal literal = returnInteger(buffer,currentToken.length);
-    if(literal != integer_literal)
-        printf("expected integer");
-    elif(literal != string_literal)
-        printf("expected string");
-    elif(literal != true_literal)
-        printf("expected boolean");
-    elif(literal != false_literal)
-        printf("expected boolean");
+    enum Literal literal = returnLiteral(buffer,currentToken.length);
+    if(literal == none_literal)
+        printf("expected literal");
 }
+
 
 int interpret_expression(char* buffer) {
     if(blockIsOpen) {
+        create_expression(expression_identifier,expression_functioncall);
         current = block;
     } else {
-        if(kind == variable) 
-            interpret_identifier(buffer);
+        if(expression_flag == 0)
+            expression_flag = 1;
+        else
+            expression_flag = 0;
+        interpret_identifier(buffer);
     }
 }
 

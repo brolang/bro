@@ -4,9 +4,10 @@
 #include "../core/core.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 struct Program program;
-int started = 0;
+int ismodule = 0;
 struct Block* currentBlock;
 struct Block scopeStack[10];
 
@@ -38,8 +39,8 @@ int init_module() {
 }
 
 int create_block(enum Keyword keyword) {
-    if(started == 0)
-        started = 1;
+    if(ismodule == 0)
+        ismodule = 1;
     if(currentBlock->numberOfBlocks = 0)
         pushParentToStack(*currentBlock);
     ++currentBlock->numberOfBlocks;
@@ -50,12 +51,13 @@ int create_block(enum Keyword keyword) {
 }
 
 int returnToParentBlock() {
-    currentBlock = currentScope;
+    struct Block scope = currentScope();
+    currentBlock = &scope;
 }
 
 int create_expression(struct Token identifier, struct Token functioncall) {
     
-    if(started == 0 ) {
+    if(ismodule == 0 ) {
         struct Expression expression;
         expression.identifier = identifier;
         expression.identifier = functioncall;

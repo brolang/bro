@@ -22,7 +22,7 @@ int input() {
 
 }
 
-int brodebug() {
+int printDebugInfo() {
     printf("PING LANGUAGE\n");
     printf("VADAPALLI KRISHNA SATYA\n");
     printf("\n");
@@ -31,5 +31,10 @@ int brodebug() {
     printf("DEBUGGER\n");
     printf("\n");
     return 0;
+}
+
+int main() {
+    printDebugInfo();
+    input();
 }
 
