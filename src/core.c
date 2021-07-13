@@ -1,0 +1,9 @@
+
+
+int allocate() {
+
+}
+
+int next() {
+
+}

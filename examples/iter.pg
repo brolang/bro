@@ -1,8 +1,10 @@
 
-
-
-loop block { 
+block continue until{ 
   case x equal 0 {
+  
   }
-} 
+}
+
+type: range(0,200) case x print "hello"
+ 
 

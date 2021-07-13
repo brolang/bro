@@ -1,4 +1,4 @@
 
-module hello {
+type: module hello {
   sayHello(name String) stdin.print "hello".concat name
 }

@@ -1,3 +1,2 @@
 
-e Integer
-e.add(2,3)
+e Integer.add(2,3)

@@ -1,20 +1,11 @@
-type Test {
+type: Test {
 
 
-comment 
+comment: author(Krishna Satya) 
 { 
    clear and pure condition no else if and else
 }
 
-    type hello() {
-        Integer x 
-        x "hello"
-        case len h greaterthan 0 {
-            x
-        } 
-        case x equal 0 {
-
-        }
-     }   
+    type: hello() "hello" case len gt 0 and x equal 0
 
 }
