@@ -1,6 +1,6 @@
 
 type hello() {
-    t &Integer
+    block { t Integer }
     t "hello"
 }
 

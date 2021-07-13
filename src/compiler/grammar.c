@@ -21,6 +21,8 @@ enum Keyword currentKeyword;
 
 int lookup(char buffer[1024]) {
     enum Keyword keyword;
+    enum Result result;
+    result = pushToStack(0);
     keyword = returnKeyword(buffer);
 }
 

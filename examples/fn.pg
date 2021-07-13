@@ -1,36 +1,14 @@
 
 module HelloModule {
-  hello() {
-    String h
-    
-       Integer hello()  {
-           case ell equal "string" {
-               print ell
-           } 
+  hello Integer hello() block{ 
+    case ell equal "string" print ell 
 
-           case b equal "call" {
-               Integer x 
-	           x add 2
-               //lambda syntax
-               Integer x(Integer z ,Integer b)  z add b 
-               loop i notequal 0 {
-
-               }
-               
-	       Range x
-               loop x {
-                    print x add 1
-               } 
-           }
-       }
-
-       module say {
-           print "Hello"
-       }
+    case b equal "call" Integer x x add 2 loop i notequal 0 block {
+	Range x loop x print x add 1
+    }
   }
-
-  Integer hello(Integer x, String y) {
-     Integer x 
-     x 2
+  module say {
+      print "Hello"
   }
+  hello(x,y) = 2
 }

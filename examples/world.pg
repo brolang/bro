@@ -2,8 +2,9 @@ type Test {
 
 
 comment 
-"clear and pure condition
-no else if and else"
+{ 
+   clear and pure condition no else if and else
+}
 
     type hello() {
         Integer x 

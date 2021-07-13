@@ -1,10 +1,9 @@
 #include "runtime.h"
 #include "actor.h"
-int eventloop() {
-  
-    while(frame_hasnext()) {
-        spawn(frame_get());
-        sync();
-    }
 
+int eventloop() {
+    while(compiler.list != result) {
+        frame = set(frame_get());
+        init(frame);
+    }
 }

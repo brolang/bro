@@ -1,15 +1,8 @@
 
 
-loop (x, y) {
 
-
-}
-
-loop x notequal 0 and y notequal 0 {
-
-}
-
-case x equal 0 {
-
+loop block { 
+  case x equal 0 {
+  }
 } 
 

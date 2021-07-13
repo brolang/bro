@@ -10,7 +10,7 @@ struct Program program;
 int ismodule = 0;
 struct Block* currentBlock;
 struct Block scopeStack[10];
-
+struct Block type;
 int top = 0;
 
 int pushParentToStack(struct Block block) {
@@ -52,6 +52,12 @@ int create_block(enum Keyword keyword) {
 
 int returnToParentBlock() {
     struct Block scope = currentScope();
+    while(scope.list != result)
+	    scope.list = scope.list.expression;
+    
+    if(scope.list == result)
+       codegen(scope); 
+
     currentBlock = &scope;
 }
 

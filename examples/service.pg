@@ -1,11 +1,9 @@
-service hello {
-    case Complete {
+block hello {
+    Complete {
 
     }
 
-    case Started { 
-        catch Exception{
-            
-        }
+    Started { 
+     
     }
 }
